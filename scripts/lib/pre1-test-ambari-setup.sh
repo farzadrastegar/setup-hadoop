@@ -9,6 +9,7 @@ FSTAB="/etc/fstab"
 SUDOERS="/etc/sudoers"
 TRANSPARENT_HUGEPAGE="/sys/kernel/mm/transparent_hugepage/enabled"
 DISABLE_IPV6="/proc/sys/net/ipv6/conf/all/disable_ipv6"
+LIMITS_CONF="/etc/security/limits.conf"
 
 echo "${USAGE}"
 read -p "Press any key to continue" anykey
@@ -16,6 +17,7 @@ echo
 
 grid_disks=$1
 hadoop_username=$2
+hadoop_group="hadoop"
 
 ## basic platform detection
 lsb_dist=''
@@ -85,7 +87,14 @@ case "${lsb_dist}" in
             printf "## Info: Testing ntpd\n"
             systemctl status ntpd
             echo "==============="
+
+            printf "## Info: Test of file handlers & processes\n"
+            cat ${LIMITS_CONF} | grep -E '^hdfs|^mapred|^hbase' && echo "Configurations found" || echo "Configurations NOT found"
+            echo "==============="
         )
+
+        printf "## Info: Test of groups configuration\n"
+        groups ${hadoop_username} | grep ${hadoop_group} >/dev/null && echo "Groups configuration passed" || echo "Groups NOT configured"
 
         printf "## Info: Test of swappiness\n"
         cat ${SYSCTL_CONF} | grep "vm.swappiness = 0" && echo "swapiness is disabled" || echo "swapiness is NOT disabled"
