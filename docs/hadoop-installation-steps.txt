@@ -1,0 +1,8 @@
+Installation of a hadoop cluster includes:
+
+1. CentOS installation on all machines
+2. Pre-ambari configuration (on all machines)
+3. Ambari installaltion
+4. HDP Installation
+5. Post-ambari configuration
+6. Cluster validation

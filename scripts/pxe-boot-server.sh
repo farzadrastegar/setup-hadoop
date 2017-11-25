@@ -6,11 +6,17 @@ set -o pipefail
 SYSCONFIG_NETWORK="/etc/sysconfig/network"
 ETC_HOSTS="/etc/hosts"
 DHCPD_CONF="/etc/dhcp/dhcpd.conf"
+VAR_FTP_PUB="/var/ftp/pub"
+DEV_CDROM="/dev/cdrom"
+YUM_REPOS="/etc/yum.repos.d"
+XINETD_TFTP="/etc/xinetd.d/tftp"
+VAR_LIB_TFTPBOOT="/var/lib/tftpboot"
+
 USAGE="USAGE: ./pxe-boot-server.sh <machine-ip> <desired-hostname> <leftmost-ip-range> <rightmost-ip-range> <netmask>"
 
 iptables_disable="${iptables_disable:-true}"
-java_provider="${java_provider:-open}" # accepts: open, oracle
-curl="curl -ksSL"
+
+network_device="eth0"
 
 echo "${USAGE}"
 read -p "Press any key to continue" anykey
@@ -104,8 +110,8 @@ case "${lsb_dist}" in
         (
             set +o errexit
 
-            printf "## Info: Installing anti-filter packages\n"
-            yum install -y -q epel-release NetworkManager-openconnect
+            #printf "## Info: Installing anti-filter packages\n"
+            #yum install -y -q epel-release NetworkManager-openconnect
 
             printf "## Info: Installing base packages\n"
             yum install -y -q vsftpd dhcp tftp-server xinetd syslinux
@@ -161,22 +167,52 @@ case "${lsb_dist}" in
 
             #write to file
             $(echo "${new_dhcpd_conf}" > ${DHCPD_CONF})
-#
-#            printf "## Syncing time via ntpd\n"
-#            ln -sf /usr/share/zoneinfo/Asia/Tehran /etc/localtime
-#            ntpd -qg || true
-#            chkconfig ntpd on || true
-#            service ntpd restart || true
+
+            printf "## Info: Mounting DVD & copying files\n"
+            printf "Please put the linux DVD into the DVD-ROM\n"
+            read -p "Enter the full path where the linux DVD is mounted to: " mount_path
+            mount -loop ${DEV_CDROM} ${mount_path}
+            chmod 777 ${VAR_FTP_PUB}
+            cp -Rvf ${mount_path}/* ${VAR_FTP_PUB}
+            cp ${mount_path}/isolinux/* ${VAR_LIB_TFTPBOOT}
+            cp /usr/share/syslinux/pxelinux.0 ${VAR_LIB_TFTPBOOT}
+
+            #create a 'default' file in pxelinux.cfg and configure it
+            mkdir -p ${VAR_LIB_TFTPBOOT}/pxelinux.cfg
+            cp ${VAR_LIB_TFTPBOOT}/isolinux.cfg ${VAR_LIB_TFTPBOOT}/pxelinux.cfg/default
+            new_default="sed -i '/^label linux/,/^label/{ s/^\\([ \\t]*\\)append initrd=initrd.img.*/\\1append initrd=initrd.img linux ks=ftp:\\/\\/${machine_ip}\\/pub\\/ks.cfg/}' ${VAR_LIB_TFTPBOOT}/pxelinux.cfg/default"
+            eval "${new_default}"
+
+            #create kickstart config file
+            kickstart_conf=$(printf "%s" "$(./lib/kickstart-config.bash ${machine_ip} ${network_device})")
+            $(echo "${kickstart_conf}" > ${VAR_FTP_PUB}/ks.cfg)
+
+            #unmount DVD-ROM
+            umount ${mount_path}
+
+            printf "## Info: Creating repository\n"
+            pxe_repo=$(printf "%s" "$(./lib/pxe-repo.bash ${machine_ip})")
+            pxe_repo_path="${YUM_REPOS}/pxe.repo"
+            verify_with_user "${pxe_repo_path}" "${pxe_repo}"
+
+            #write to file
+            $(echo "${pxe_repo}" > ${pxe_repo_path})
+
+            service vsftpd start
+            yum clean all
+            yum repolist
+            #yum install telnet-server && echo "Creating repository completed!" || echo "repository NOT working!"
+
+            printf "## Info: Enabling TFTP-server\n"
+            sed -i 's/\(^[^#]*\)disable\([ \t]*\)=\([ \t]*\)yes/\1disable\2=\3no/' ${XINETD_TFTP}
+
+            printf "## Info: Enabling all required services\n"
+            for servicename in dhcpd vsftpd xinetd; do
+                service ${servicename} stop
+                service ${servicename} start
+                chkconfig ${servicename} on
+            done
         )
-#
-#        if [ "${java_provider}" != 'oracle' ]; then
-#            printf "## installing java\n"
-#            yum install -q -y java-1.${java_version}.0-openjdk-devel
-#            mkdir -p /usr/java
-#            ln -sf /etc/alternatives/java_sdk /usr/java/default
-#            #update-alternatives --set java /usr/lib/jvm/jre-1.${java_version}.0-openjdk/bin/java
-#            JAVA_HOME='/usr/java/default'
-#        fi
 
         printf "## Success! All done.\n"
         exit 0
