@@ -184,7 +184,8 @@ case "${lsb_dist}" in
             eval "${new_default}"
 
             #create kickstart config file
-            kickstart_conf=$(printf "%s" "$(./lib/kickstart-config.bash ${machine_ip} ${network_device})")
+            read -p "Enter the kickstart bash filename in the lib directory: " kickstart_config
+            kickstart_conf=$(printf "%s" "$(./lib/${kickstart_config} ${machine_ip} ${network_device})")
             $(echo "${kickstart_conf}" > ${VAR_FTP_PUB}/ks.cfg)
 
             #unmount DVD-ROM
