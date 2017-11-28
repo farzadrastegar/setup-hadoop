@@ -4,7 +4,8 @@
 # get input arguments in order
 server_ip=$1
 network_device=$2
-rootpassword='$1$m94YPDA0$O4VvtW2eg0VIvff1pBKlG/'
+#rootpassword='$1$m94YPDA0$O4VvtW2eg0VIvff1pBKlG/' #prehduser2
+rootpassword='$1$wnDltoQ5$5tGjJ4gOvRzsiKi7mxxO70' #123123
 
 cat << EOF
 #version=DEVEL
@@ -85,6 +86,15 @@ make
 open-vm-tools
 patch
 python
+%end
+
+
+%post
+/usr/bin/yum -y update >> /root/post_install.log 2>&1
+/sbin/chkconfig --del bluetooth
+/sbin/chkconfig --del cups
+/sbin/chkconfig --del postfix
+
 %end
 
 EOF
