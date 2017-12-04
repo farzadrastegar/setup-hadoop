@@ -47,14 +47,14 @@ bootloader --location=mbr --append="rhgb quiet"
 clearpart --all --initlabel
 
 # Disk partitioning information
-part /boot/efi --fstype vfat --size=200           --ondrive=sdb
-part /boot     --fstype ext3 --size=1024          --ondrive=sdb
-part /grid/1   --fstype ext3 --size=476876 --grow --ondrive=sdb
-part /var      --fstype ext3 --size=190771 --grow --ondrive=sdb
-part /opt      --fstype ext3 --size=95334  --grow --ondrive=sdb
-part /usr/hdp  --fstype ext3 --size=95334  --grow --ondrive=sdb
-part /         --fstype ext3 --size=78233  --grow --ondrive=sdb
-part /drid/2   --fstype ext3 --size=476876 --grow --ondrive=sda
+part /boot/efi --fstype vfat --size=200           --ondrive=sda
+part /boot     --fstype ext3 --size=1024          --ondrive=sda
+part /grid/1   --fstype ext3 --size=476876 --grow --ondrive=sda
+part /var      --fstype ext3 --size=190771 --grow --ondrive=sda
+part /opt      --fstype ext3 --size=95334  --grow --ondrive=sda
+part /usr/hdp  --fstype ext3 --size=95334  --grow --ondrive=sda
+part /         --fstype ext3 --size=78233  --grow --ondrive=sda
+part /drid/2   --fstype ext3 --size=476876 --grow --ondrive=sdb
 
 
 repo --name="pxe-repo" --baseurl=ftp://${server_ip}/pub --cost=100
