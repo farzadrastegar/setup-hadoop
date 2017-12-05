@@ -53,8 +53,7 @@ part /         --fstype ext3 --size=78233  --grow --ondrive=sda
 part /var      --fstype ext3 --size=190771 --grow --ondrive=sdb
 part /opt      --fstype ext3 --size=95334  --grow --ondrive=sdb
 part /usr/hdp  --fstype ext3 --size=95334  --grow --ondrive=sdb
-part /grid/1   --fstype ext3 --size=300000 --grow --ondrive=sdb
-part /drid/2   --fstype ext3 --size=300000 --grow --ondrive=sdb
+part /grid/1   --fstype ext3 --size=500000 --grow --ondrive=sdb
 
 
 repo --name="pxe-repo" --baseurl=ftp://${server_ip}/pub --cost=100
