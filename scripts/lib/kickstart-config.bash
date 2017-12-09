@@ -54,7 +54,7 @@ clearpart --all --initlabel
 #part /opt      --fstype="ext3" --size=100000 --ondrive=sdb
 #part /usr/hdp  --fstype="ext3" --size=100000 --ondrive=sdb
 #part /         --fstype="ext3" --size=82000  --ondrive=sdb
-#part /drid/2   --fstype="ext3" --size=500000 --ondrive=sda
+#part /grid/2   --fstype="ext3" --size=500000 --ondrive=sda
 
 part / --fstype ext4 --size=5400
 part /boot --fstype ext4 --size=100
