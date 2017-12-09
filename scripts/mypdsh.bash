@@ -29,7 +29,7 @@ for host in `paste -d'@' ${users} ${ips} 2>/dev/null`; do
 
    #copy the script into the remote machine and run it
    eval sshpass -p ${ssh_password} scp "${script2run}" "${host}:~/${host_dir}"
-   ssh_cmd="sshpass -p ${ssh_password} ssh ${host} \"cd ${host_dir}; bash ./${script2run} >${script2run}.out 2>&1\""
+   ssh_cmd="sshpass -p ${ssh_password} ssh ${host} \"cd ${host_dir}; chmod 755 ${script2run}; nohup bash ./${script2run} >${script2run}.out 2>&1 &\""
    eval "${ssh_cmd}"
 done
 
