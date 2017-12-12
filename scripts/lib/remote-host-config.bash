@@ -19,6 +19,6 @@ new_sysconfig_network=$(printf "%s\n%s\n%s" "${networkingLine}" "${hostnameLine}
 echo "${new_sysconfig_network}" > ${SYSCONFIG_NETWORK}
 
 #modify /etc/hosts
-new_etc_hosts=$(printf "%s\n%s %s" "$(cat ${ETC_HOSTS})" "${machine_ip}" "${machine_hostname}")
-echo "${new_etc_hosts}" > ${ETC_HOSTS}
+#new_etc_hosts=$(printf "%s\n%s %s" "$(cat ${ETC_HOSTS})" "${machine_ip}" "${machine_hostname}")
+#echo "${new_etc_hosts}" > ${ETC_HOSTS}
 

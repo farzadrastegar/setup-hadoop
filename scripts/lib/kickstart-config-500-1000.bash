@@ -85,14 +85,13 @@ kexec-tools
 make
 open-vm-tools
 patch
-python
 %end
 
 
 %post
-/usr/bin/yum -y update >> /root/post_install.log 2>&1
-/usr/bin/yum install epel-release >> /root/post_install.log 2>&1
-/usr/bin/yum install pdsh >> /root/post_install.log 2>&1
+#/usr/bin/yum -y update >> /root/post_install.log 2>&1
+#/usr/bin/yum install epel-release >> /root/post_install.log 2>&1
+#/usr/bin/yum install pdsh >> /root/post_install.log 2>&1
 /sbin/chkconfig --del bluetooth
 /sbin/chkconfig --del cups
 /sbin/chkconfig --del postfix

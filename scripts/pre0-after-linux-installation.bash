@@ -15,7 +15,7 @@ original_ssh_targz="orig-ssh.tar.gz"
 new_ssh_targz="new-ssh.tar.gz"
 curdir="$(pwd)"
 host_dir="host-config"
-ssh_key="~/.ssh/id_rsa"
+ssh_key="${curdir}/privatekey.pom"
 
 ### Setting up passwordless SSH ###
 eval cd
@@ -43,6 +43,12 @@ eval cd
 rm -f ${new_ssh_targz}
 eval tar cvzf ${new_ssh_targz} ${ssh_dir} >/dev/null 2>&1
 
+# Make a peivate key token
+if [ -e ${private_key} ]; then
+   mv ${private_key} "${private_key}.0"
+fi
+cp ${ssh_dir}/id_rsa ${ssh_key}
+
 eval cd ${curdir}
 
 # Transfer new ssh to all machines
@@ -52,8 +58,8 @@ for host in `paste -d'@' ${users} ${ips} 2>/dev/null`; do
    ((i++))
 
    echo "Connecting ${host}..."
-   eval scp "~/${new_ssh_targz}" "${host}:~"
-   ssh_cmd="ssh ${host} \"rm -fr .ssh; tar xvzf ${new_ssh_targz}; rm ${new_ssh_targz}; mkdir -p ${host_dir}\""
+   eval scp -i ${ssh_key} "~/${new_ssh_targz}" "${host}:~"
+   ssh_cmd="ssh -t -i ${ssh_key} ${host} \"rm -fr .ssh; tar xvzf ${new_ssh_targz}; rm ${new_ssh_targz}; mkdir -p ${host_dir}\""
    eval "${ssh_cmd}"
    eval scp -i ${ssh_key} lib/remote-host-config.bash "${host}:~/${host_dir}"
 done
@@ -68,7 +74,7 @@ ip_filename="machine_ip"
 echo "prepare the machine_hostname file"
 i=0
 for machine_hostname in `cat ${hostnames} 2>/dev/null`; do 
-   cmd="echo ${machine_hostname} | ssh -i ${ssh_key} ${userATip[$i]} 'cat > ${host_dir}/${host_filename}'"
+   cmd="echo ${machine_hostname} | ssh -t -i ${ssh_key} ${userATip[$i]} 'cat > ${host_dir}/${host_filename}'"
    echo "${cmd}"
    eval "${cmd}"
    ((i++))
@@ -77,7 +83,7 @@ done
 echo "prepare the machine_ip file"
 i=0
 for machine_ip in `cat ${ips} 2>/dev/null`; do 
-   cmd="echo ${machine_ip} | ssh -i ${ssh_key} ${userATip[$i]} 'cat > ${host_dir}/${ip_filename}'"
+   cmd="echo ${machine_ip} | ssh -t -i ${ssh_key} ${userATip[$i]} 'cat > ${host_dir}/${ip_filename}'"
    echo "${cmd}"
    eval "${cmd}"
    ((i++))
@@ -87,7 +93,7 @@ echo "run script in the remote machine"
 len=${#userATip[*]}
 for (( i=1; i<len; i+=2 ))
 do
-   ssh_cmd="ssh -i ${ssh_key} ${userATip[$i]} \"cd ${host_dir}; bash ./remote-host-config.bash\""
+   ssh_cmd="ssh -t -i ${ssh_key} ${userATip[$i]} \"cd ${host_dir}; bash ./remote-host-config.bash\""
    echo "${ssh_cmd}"
    eval "${ssh_cmd}"
 done

@@ -148,7 +148,7 @@ case "${lsb_dist}" in
             my_disable_ipv6
 
             printf "## Info: Installing base packages\n"
-            yum install -y -q curl ntp openssl python zlib wget unzip openssh-clients httpd
+            yum install -y -q ntp #curl openssl python zlib wget unzip openssh-clients httpd
 
             printf "## Info: Fixing sudo to not requiretty. This is the default in newer distributions\n"
             printf 'Defaults !requiretty\n' > /etc/sudoers.d/888-dont-requiretty
@@ -199,14 +199,14 @@ case "${lsb_dist}" in
             $(echo "${wheel_nopasswd}" >> ${SUDOERS})    
         )
 
-        if [ "${java_provider}" != 'oracle' ]; then
-            printf "## Info: Installing java\n"
-            yum install -q -y java-1.${java_version}.0-openjdk-devel
-            mkdir -p /usr/java
-            ln -sf /etc/alternatives/java_sdk /usr/java/default
-            #update-alternatives --set java /usr/lib/jvm/jre-1.${java_version}.0-openjdk/bin/java
-            JAVA_HOME='/usr/java/default'
-        fi
+#        if [ "${java_provider}" != 'oracle' ]; then
+#            printf "## Info: Installing java\n"
+#            yum install -q -y java-1.${java_version}.0-openjdk-devel
+#            mkdir -p /usr/java
+#            ln -sf /etc/alternatives/java_sdk /usr/java/default
+#            #update-alternatives --set java /usr/lib/jvm/jre-1.${java_version}.0-openjdk/bin/java
+#            JAVA_HOME='/usr/java/default'
+#        fi
 
         printf "## Info: Disabling swappiness\n"
         swappiness="vm.swappiness = 0"
