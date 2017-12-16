@@ -1,0 +1,24 @@
+Ambari Panel
+============
+# Increase ResourceManager heap size to 3 MB (if any alerts exist)
+
+Ambari Machine
+==============
+# Mysql temporary password
+sudo grep 'temporary password' /var/log/mysqld.log
+
+# Commands required after first login to mysql
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'Xxxxxx@xxxx9';
+
+CREATE USER 'hive'@'x.x.x.x' IDENTIFIED BY 'Xxxxxx@xxxx9';
+GRANT ALL PRIVILEGES ON *.* TO 'hive'@'x.x.x.x' WITH GRANT OPTION;
+CREATE USER 'hive'@'%' IDENTIFIED BY 'Xxxxxx@xxxx9';
+GRANT ALL PRIVILEGES ON *.* TO 'hive'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+
+
+Slave Machines
+==============
+mkdir ~/post-ambari
+cd ~/post-ambari
+mv /usr/hdp/hadoop/ .

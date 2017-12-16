@@ -42,6 +42,8 @@ $ ./pre0-after-linux-installation.bash <usernames> <ip-addresses> <desired-hostn
 $ cp lib/add-cluster-hostnames.bash .
 $ ./mypdsh.bash <usernames> <ip-addresses> add-cluster-hostnames.bash
 <usernames>: root ONLY
+3.2.3. Reboot all nodes.
+$ ./mypdsh.bash <usernames> <ip-addresses> reboot.bash
 
 4. Run pre-ambari configurations.
 
