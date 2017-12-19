@@ -69,7 +69,7 @@ $ ./mypdsh.bash <usernames> <ip-addresses> yum-repos.bash
 A. Automate CentOS registration confirmation
 B. Automate answering to boot up questions (location, ...)
 C. Automate creating usernames throughout booting
-D. Automate network settings (assigning IP, subnet, gateway, dns, ...)
+D. Automate network settings (gateway, dns, ...)
 
 # Note
 A. If 'yum update' is among post package processings, you might need to run the 'dhclient' command before updating just to make sure the machine has a valid IP. 
