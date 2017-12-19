@@ -22,3 +22,11 @@ Slave Machines
 mkdir ~/post-ambari
 cd ~/post-ambari
 mv /usr/hdp/hadoop/ .
+
+Flume Machines
+==============
+# In case machines with flume restart:
+mkdir /var/run/flume
+chown flume:hadoop /var/run/flume
+
+ 
