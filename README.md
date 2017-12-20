@@ -25,7 +25,7 @@ A step-by-step tutorial on setting up a set of machines for Hortonworks Data Pla
    \<netmask\>: network netmask, e.g. 255.255.255.0
 
 
-        2.1.1. (If necessary) download jre/jdk rpm files and run the following script on the frontend machine to configure java repository.
+     2.1.1. (If necessary) download jre/jdk rpm files and run the following script on the frontend machine to configure java repository.
 ```
         $ cd lib
         $ ./java-repo.bash <pxe-server-ip> <jre rpm path> <jdk rpm path> <user@repo-server-ip>
