@@ -49,8 +49,8 @@ A step-by-step tutorial on setting up a set of machines for Hortonworks Data Pla
 ```
         $ cp lib/add-cluster-hostnames.bash .
         $ ./mypdsh.bash <usernames> <ip-addresses> add-cluster-hostnames.bash
-```
            <usernames>: root ONLY
+```
         3.2.3. Reboot all nodes.
 ```
         $ ./mypdsh.bash <usernames> <ip-addresses> reboot.bash
