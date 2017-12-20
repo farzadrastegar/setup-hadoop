@@ -45,6 +45,7 @@ A step-by-step tutorial on setting up a set of machines for Hortonworks Data Pla
       <desired-hostnames>: a filename containing the correspnding hostnames of the ip addresses shown in the <ip-addresses> filename.
  
    3.2. Add other nodes' hostnames to every node
+
         3.2.1. Modify add-cluster-hostnames.bash with IPs and hostnames of nodes and repo server (if any).
         3.2.2. Run the following commands.
 ```
