@@ -40,7 +40,7 @@ A step-by-step tutorial on setting up a set of machines for Hortonworks Data Pla
 ```
    $ ./pre0-after-linux-installation.bash <usernames> <ip-addresses> <desired-hostnames>
 ```
-   "<usernames>": a filename containing the list of usernames each in a separate line. The usernames must indicate both the hadoop username and root on every machine. root usernames must be in even lines (line #2, #4, ...).
+   "\<usernames\>": a filename containing the list of usernames each in a separate line. The usernames must indicate both the hadoop username and root on every machine. root usernames must be in even lines (line #2, #4, ...).
       <ip-addresses>: a filename containing the ip address of each machine in separate lines. Since the <usernames> filename has at least two usernames for each machine, the <ip-addressess> filename needs the same number of ip addresses duplicated for its corresponding username.
       <desired-hostnames>: a filename containing the correspnding hostnames of the ip addresses shown in the <ip-addresses> filename. 
    3.2. Add other nodes' hostnames to every node
