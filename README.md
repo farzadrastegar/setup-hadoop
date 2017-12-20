@@ -4,9 +4,7 @@ A step-by-step tutorial on setting up a set of machines for Hortonworks Data Pla
 1. Install CentOS 7 on a machine that is in charge of installing hadoop cluster. We call this machine the "fontend machine".
 
    1.1. To install CentOS 7 using a flash disk, write the iso file onto the disk through the following command (/dev/sdc is the device associated with the flash disk in this example).
-```
-   $ dd if=CentOS-7-x86_64-Everything-1611.iso of=/dev/sdc
-```
+      $ dd if=CentOS-7-x86_64-Everything-1611.iso of=/dev/sdc
 
 2. Setup a PXE-boot server on the frontend machine and install CentOS 7 on all hadoop cluster nodes.
 
