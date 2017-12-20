@@ -10,6 +10,7 @@ A step-by-step tutorial on setting up a set of machines for Hortonworks Data Pla
 2. Setup a PXE-boot server on the frontend machine and install CentOS 7 on all hadoop cluster nodes.
 
    2.1. Run the following script to setup PXE boot server on the frontend machine. All the files and directories under the 'scripts' directory are required to run the script properly. Make sure that the 'CentOS-*-DVD-*.iso' file is available so that the script can mount and use it.
+
       $ ./pxe-boot-server.sh <machine-ip> <desired-hostname> <leftmost-ip-range> <rightmost-ip-range> <netmask>
       <machine-ip>: the IP address of the frontend machine, e.g. 192.168.10.10
       <desired-hostname>: a hostname for the frontend machine, e.g. pxe-server.myserver.com
