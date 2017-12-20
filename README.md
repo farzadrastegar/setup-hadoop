@@ -57,6 +57,7 @@ A step-by-step tutorial on setting up a set of machines for Hortonworks Data Pla
          $ ./mypdsh.bash <usernames> <ip-addresses> add-cluster-hostnames.bash
 
    \<usernames\>: root ONLY
+
    3.2.3. Reboot all nodes.
 
          $ ./mypdsh.bash <usernames> <ip-addresses> reboot.bash
@@ -77,7 +78,7 @@ A step-by-step tutorial on setting up a set of machines for Hortonworks Data Pla
 
          $ ./mypdsh.bash <usernames> <ip-addresses> pre1-noquestions-test-ambari-setup.sh
 
-   4.2.3. See output at root@<node-hostname>:~/host-config/pre1-noquestions-test-ambari-setup.sh.out. There shouldn't be any "NOT" term in the file.
+   4.2.3. See output at root@\<node-hostname\>:~/host-config/pre1-noquestions-test-ambari-setup.sh.out. There shouldn't be any "NOT" term in the file.
 
 5. Prepare /etc/yum.repos.d in every node.
 
