@@ -83,10 +83,10 @@ A step-by-step tutorial on setting up a set of machines for Hortonworks Data Pla
 ```
 
 # Future work for automation
-A. Automate CentOS registration confirmation
-B. Automate answering to boot up questions (location, ...)
-C. Automate creating usernames throughout booting
-D. Automate network settings (gateway, dns, ...)
+- [ ] Automate CentOS registration confirmation
+- [ ] Automate answering to boot up questions (location, ...)
+- [ ] Automate creating usernames throughout booting
+- [ ] Automate network settings (gateway, dns, ...)
 
 # Note
 A. If 'yum update' is among post package processings, you might need to run the 'dhclient' command before updating just to make sure the machine has a valid IP. 
