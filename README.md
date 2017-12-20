@@ -24,6 +24,7 @@ A step-by-step tutorial on setting up a set of machines for Hortonworks Data Pla
         $ cd lib
         $ ./java-repo.bash <pxe-server-ip> <jre rpm path> <jdk rpm path> <user@repo-server-ip>
 ```
+
    2.2. (If necessary) go to the BIOS menu of every machine in hadoop cluster and set them to boot from network (PXE boot enabled)
    Intel LAN Controller -> Enabled
    Intel PXE Option ROM -> ON
