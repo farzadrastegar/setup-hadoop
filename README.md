@@ -44,49 +44,48 @@ A step-by-step tutorial on setting up a set of machines for Hortonworks Data Pla
 
    \<usernames\>: a filename containing the list of usernames each in a separate line. The usernames must indicate both the hadoop username and root on every machine. root usernames must be in even lines (line #2, #4, ...).
 
-   \<ip-addresses\>: a filename containing the ip address of each machine in separate lines. Since the <usernames> filename has at least two usernames for each machine, the <ip-addressess> filename needs the same number of ip addresses duplicated for its corresponding username.
+   \<ip-addresses\>: a filename containing the ip address of each machine in separate lines. Since the \<usernames\> filename has at least two usernames for each machine, the \<ip-addressess\> filename needs the same number of ip addresses duplicated for its corresponding username.
 
-   \<desired-hostnames\>: a filename containing the correspnding hostnames of the ip addresses shown in the <ip-addresses> filename. 
+   \<desired-hostnames\>: a filename containing the correspnding hostnames of the ip addresses shown in the \<ip-addresses\> filename. 
 
    3.2. Add other nodes' hostnames to every node
 
-        3.2.1. Modify add-cluster-hostnames.bash with IPs and hostnames of nodes and repo server (if any).
-        3.2.2. Run the following commands.
-```
-        $ cp lib/add-cluster-hostnames.bash .
-        $ ./mypdsh.bash <usernames> <ip-addresses> add-cluster-hostnames.bash
-           <usernames>: root ONLY
-```
-        3.2.3. Reboot all nodes.
-```
-        $ ./mypdsh.bash <usernames> <ip-addresses> reboot.bash
-```
+   3.2.1. Modify add-cluster-hostnames.bash with IPs and hostnames of nodes and repo server (if any).
+   3.2.2. Run the following commands.
+
+         $ cp lib/add-cluster-hostnames.bash .
+         $ ./mypdsh.bash <usernames> <ip-addresses> add-cluster-hostnames.bash
+
+   \<usernames\>: root ONLY
+   3.2.3. Reboot all nodes.
+
+         $ ./mypdsh.bash <usernames> <ip-addresses> reboot.bash
 
 4. Run pre-ambari configurations.
 
    4.1. Configure all nodes.
 
-        4.1.1. Change "$1", "$2", and "read" commands in pre1-ambari-setup.sh and name it pre1-noquestions-ambari-setup.sh.
-        4.1.2. Run configurations on all nodes.
-```
-        $ ./mypdsh.bash <usernames> <ip-addresses> pre1-noquestions-ambari-setup.sh
-```
+   4.1.1. Change "$1", "$2", and "read" commands in pre1-ambari-setup.sh and name it pre1-noquestions-ambari-setup.sh.
+   4.1.2. Run configurations on all nodes.
+
+         $ ./mypdsh.bash <usernames> <ip-addresses> pre1-noquestions-ambari-setup.sh
+
    4.2. Validate configureations.
 
-        4.2.1. Change "$1", "$2", and "read" commands in lib/pre1-test-ambari-setup.sh and name it pre1-noquestions-test-ambari-setup.sh.
-        4.2.2. Run validations on all nodes.
-```
-        $ ./mypdsh.bash <usernames> <ip-addresses> pre1-noquestions-test-ambari-setup.sh
-```
-        4.2.3. See output at root@<node-hostname>:~/host-config/pre1-noquestions-test-ambari-setup.sh.out. There shouldn't be any "NOT" term in the file.
+   4.2.1. Change "$1", "$2", and "read" commands in lib/pre1-test-ambari-setup.sh and name it pre1-noquestions-test-ambari-setup.sh.
+   4.2.2. Run validations on all nodes.
+
+         $ ./mypdsh.bash <usernames> <ip-addresses> pre1-noquestions-test-ambari-setup.sh
+
+   4.2.3. See output at root@<node-hostname>:~/host-config/pre1-noquestions-test-ambari-setup.sh.out. There shouldn't be any "NOT" term in the file.
 
 5. Prepare /etc/yum.repos.d in every node.
 
    5.1. Make a backup directory and move current repo files to it. Copy .repo files from repository server to /etc/yum.repos.d.
-```
-   $ cp lib/yum-repos.bash .
-   $ ./mypdsh.bash <usernames> <ip-addresses> yum-repos.bash
-```
+
+         $ cp lib/yum-repos.bash .
+         $ ./mypdsh.bash <usernames> <ip-addresses> yum-repos.bash
+
 
 # Future work for automation
 - [ ] Automate CentOS registration confirmation
