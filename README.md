@@ -15,13 +15,9 @@ A step-by-step tutorial on setting up a set of machines for Hortonworks Data Pla
    $ ./pxe-boot-server.sh <machine-ip> <desired-hostname> <leftmost-ip-range> <rightmost-ip-range> <netmask>
 ```
       <machine-ip>: the IP address of the frontend machine, e.g. 192.168.10.10
-
       <desired-hostname>: a hostname for the frontend machine, e.g. pxe-server.myserver.com
-
       <leftmost-ip-range>: the leftmost range of the sets of IP addresses that PXE boot server makes available for hadoop cluster nodes, e.g. 192.168.10.120
-
       <rightmost-ip-range>: the rightmost range of the sets of IP addressed that PXE boot server makes available for hadoop cluster nodes, e.g. 192.168.10.160
-
       <netmask>: network netmask, e.g. 255.255.255.0
    2.1.1. (If necessary) download jre/jdk rpm files and run the following script on the frontend machine to configure java repository.
 ```
