@@ -65,7 +65,6 @@ A step-by-step tutorial on setting up a set of machines for Hortonworks Data Pla
 ```
         $ ./mypdsh.bash <usernames> <ip-addresses> pre1-noquestions-ambari-setup.sh
 ```
-
    4.2. Validate configureations.
         4.2.1. Change "$1", "$2", and "read" commands in lib/pre1-test-ambari-setup.sh and name it pre1-noquestions-test-ambari-setup.sh.
         4.2.2. Run validations on all nodes.
