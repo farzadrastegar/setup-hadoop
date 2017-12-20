@@ -16,12 +16,9 @@ A step-by-step tutorial on setting up a set of machines for Hortonworks Data Pla
 ```
       <machine-ip>: the IP address of the frontend machine, e.g. 192.168.10.10
       <desired-hostname>: a hostname for the frontend machine, e.g. pxe-server.myserver.com
-
-   ```<leftmost-ip-range>```: the leftmost range of the sets of IP addresses that PXE boot server makes available for hadoop cluster nodes, e.g. 192.168.10.120
-
-   ```<rightmost-ip-range>```: the rightmost range of the sets of IP addressed that PXE boot server makes available for hadoop cluster nodes, e.g. 192.168.10.160
-
-   ```<netmask>```: network netmask, e.g. 255.255.255.0
+      <leftmost-ip-range>: the leftmost range of the sets of IP addresses that PXE boot server makes available for hadoop cluster nodes, e.g. 192.168.10.120
+      <rightmost-ip-range>: the rightmost range of the sets of IP addressed that PXE boot server makes available for hadoop cluster nodes, e.g. 192.168.10.160
+      <netmask>: network netmask, e.g. 255.255.255.0
 
         2.1.1. (If necessary) download jre/jdk rpm files and run the following script on the frontend machine to configure java repository.
 ```
@@ -43,9 +40,9 @@ A step-by-step tutorial on setting up a set of machines for Hortonworks Data Pla
 ```
    $ ./pre0-after-linux-installation.bash <usernames> <ip-addresses> <desired-hostnames>
 ```
-   ```<usernames>```: a filename containing the list of usernames each in a separate line. The usernames must indicate both the hadoop username and root on every machine. root usernames must be in even lines (line #2, #4, ...).
-   ```<ip-addresses>```: a filename containing the ip address of each machine in separate lines. Since the <usernames> filename has at least two usernames for each machine, the <ip-addressess> filename needs the same number of ip addresses duplicated for its corresponding username.
-   ```<desired-hostnames>```: a filename containing the correspnding hostnames of the ip addresses shown in the <ip-addresses> filename.
+      <usernames>: a filename containing the list of usernames each in a separate line. The usernames must indicate both the hadoop username and root on every machine. root usernames must be in even lines (line #2, #4, ...).
+      <ip-addresses>: a filename containing the ip address of each machine in separate lines. Since the <usernames> filename has at least two usernames for each machine, the <ip-addressess> filename needs the same number of ip addresses duplicated for its corresponding username.
+      <desired-hostnames>: a filename containing the correspnding hostnames of the ip addresses shown in the <ip-addresses> filename.
  
    3.2. Add other nodes' hostnames to every node
         3.2.1. Modify add-cluster-hostnames.bash with IPs and hostnames of nodes and repo server (if any).
@@ -54,7 +51,7 @@ A step-by-step tutorial on setting up a set of machines for Hortonworks Data Pla
         $ cp lib/add-cluster-hostnames.bash .
         $ ./mypdsh.bash <usernames> <ip-addresses> add-cluster-hostnames.bash
 ```
-        <usernames>: root ONLY
+           <usernames>: root ONLY
         3.2.3. Reboot all nodes.
 ```
         $ ./mypdsh.bash <usernames> <ip-addresses> reboot.bash
