@@ -87,6 +87,9 @@ A step-by-step tutorial on setting up a set of machines for Hortonworks Data Pla
          $ cp lib/yum-repos.bash .
          $ ./mypdsh.bash <usernames> <ip-addresses> yum-repos.bash
 
+6. Prepare Ambari/HDP configurations using videos #4, #5, and #6 in the following URL.
+https://www.youtube.com/watch?v=usYJbMRXxew&index=4&list=PLhd4MmrFf8CXULSLNIxuoY49mVDGKlMk3
+
 
 # Future work for automation
 - [ ] Automate CentOS registration confirmation
