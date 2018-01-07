@@ -80,15 +80,19 @@ A step-by-step tutorial on setting up a set of machines for Hortonworks Data Pla
 
    4.2.3. See output at root@\<node-hostname\>:~/host-config/pre1-noquestions-test-ambari-setup.sh.out. There shouldn't be any "NOT" term in the file.
 
-5. Prepare /etc/yum.repos.d in every node.
+5. Prepare Ambari/HDP repositories using video #4 in the following URL in a machine called the repository server. This server that is configured to contain all the Ambari/HDP repositories is called 'master1.hadoopcluster.webranking' in our scripts laster on. This server is separated from hadoop nodes. In other words, the frontend machine and the repository server could be two virtual machines serving to configure the hadoop cluster.
+https://www.youtube.com/watch?v=usYJbMRXxew&index=4&list=PLhd4MmrFf8CXULSLNIxuoY49mVDGKlMk3
 
-   5.1. Make a backup directory and move current repo files to it. Copy .repo files from repository server to /etc/yum.repos.d.
+6. Prepare /etc/yum.repos.d in every node.
+
+   6.1. Make a backup directory and move current repo files to it. Copy .repo files from the repository server, i.e. master1.hadoopcluster.webranking, to /etc/yum.repos.d.
 
          $ cp lib/yum-repos.bash .
          $ ./mypdsh.bash <usernames> <ip-addresses> yum-repos.bash
 
-6. Prepare Ambari/HDP configurations using videos #4, #5, and #6 in the following URL.
+7. Install Ambari using video #5 from the following link. Subsequently, install multi-node Hortonworks HDP hadoop cluster through Ambari using video #6.
 https://www.youtube.com/watch?v=usYJbMRXxew&index=4&list=PLhd4MmrFf8CXULSLNIxuoY49mVDGKlMk3
+
 
 
 # Future work for automation
