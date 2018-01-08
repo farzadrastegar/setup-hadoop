@@ -80,7 +80,7 @@ A step-by-step tutorial on setting up a set of machines for Hortonworks Data Pla
 
    4.2.3. See output at root@\<node-hostname\>:~/host-config/pre1-noquestions-test-ambari-setup.sh.out. There shouldn't be any "NOT" term in the file.
 
-5. Prepare Ambari/HDP repositories using video #4 in the following URL in a machine called the repository server. This server that is configured to contain all the Ambari/HDP repositories is called 'master1.hadoopcluster.webranking' in our scripts laster on. This server is separated from hadoop nodes. In other words, the frontend machine and the repository server could be two virtual machines serving to configure the hadoop cluster.
+5. Prepare Ambari/HDP repositories using video #4 in the following URL in a machine called the "repository server". This server that is configured to contain all the Ambari/HDP repositories is called 'master1.hadoopcluster.webranking' in our scripts. Note that the "frontend machine" and the "repository server" could be seen as two virtual machines serving to configure the hadoop cluster.
 https://www.youtube.com/watch?v=usYJbMRXxew&index=4&list=PLhd4MmrFf8CXULSLNIxuoY49mVDGKlMk3
 
 6. Prepare /etc/yum.repos.d in every node.
