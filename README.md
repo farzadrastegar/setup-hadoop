@@ -80,7 +80,7 @@ A step-by-step tutorial on setting up a set of machines for Hortonworks Data Pla
 
    4.2.3. See output at root@\<node-hostname\>:~/host-config/pre1-noquestions-test-ambari-setup.sh.out. There shouldn't be any "NOT" term in the file.
 
-5. Prepare Ambari/HDP repositories using video #4 in the following URL in a machine called the repository server. This server that is configured to contain all the Ambari/HDP repositories is called 'master1.hadoopcluster.webranking' in our scripts laster on. This server is separated from hadoop nodes. In other words, the frontend machine and the repository server could be two virtual machines serving to configure the hadoop cluster.
+5. Prepare Ambari/HDP repositories using the following URL in a machine called the repository server. This server that is configured to contain all the Ambari/HDP repositories is called 'master1.hadoopcluster.webranking' in our scripts laster on. This server is separated from hadoop nodes. In other words, the frontend machine and the repository server could be two virtual machines serving to configure the hadoop cluster.
 https://www.youtube.com/watch?v=usYJbMRXxew&index=4&list=PLhd4MmrFf8CXULSLNIxuoY49mVDGKlMk3
 
 6. Prepare /etc/yum.repos.d in every node.
@@ -90,9 +90,76 @@ https://www.youtube.com/watch?v=usYJbMRXxew&index=4&list=PLhd4MmrFf8CXULSLNIxuoY
          $ cp lib/yum-repos.bash .
          $ ./mypdsh.bash <usernames> <ip-addresses> yum-repos.bash
 
-7. Install Ambari using video #5 from the following link. Subsequently, install multi-node Hortonworks HDP hadoop cluster through Ambari using video #6.
-https://www.youtube.com/watch?v=usYJbMRXxew&index=4&list=PLhd4MmrFf8CXULSLNIxuoY49mVDGKlMk3
+7. Install and start Ambari on a server node.
+   7.1. Install Ambari on a server node
 
+         $ yum install ambari-server
+
+   7.2. Initialize Ambari (installs Java by default). 
+
+         $ ambari-server setup
+
+   7.3 (Optional) After running the command above, choose the "Custom JDK" option in case you would like to bypass java installation and enter the path of Java_HOME yourself. In a separate terminal window use the following command to find your JAVA_HOME path and use the output of the command for JAVA_HOME during Ambari installation.
+
+         $ ls -ltr $(ls -ltr $(which java) | awk '{print $NF}') | awk '{print $NF}' | sed 's/bin/bin /g' | cut -d' ' -f1
+
+   7.4. Start Ambari server
+
+         $ ambari-server start
+
+   7.5. Go to the following URL (user:admin, pass:admin)
+   http://localhost:8080
+
+8. Install Hortonworks Data Platform (HDP) on hadooop nodes.
+
+   8.1. Using the node where Ambari is installed, go to the following URL (user:admin, pass:admin)
+   http://localhost:8080
+
+   8.2. Click on 'Launch Install Wizard'
+
+   8.3. Give a name to cluster and click Next
+
+   8.4. Select 'Advanced Repository Options'
+
+   8.5. Base on your operating system edit the links to your HDP and HDP-UTILS local server paths and uncheck other checkboxes
+
+   8.6. On the 'Install Options' page, copy/paste hosts from /etc/hosts and remove IPs
+
+   8.7. Give the path to the SSH private key and provide username.
+
+   8.8. Click on 'Replace and Confirm'
+
+   8.9. Next page installs HDP for all the nodes in the cluster
+
+   8.10. Take care of warning messages (if necessary). Click Next
+
+   8.11. Choose Services (e.g. HDFS, Yarn, Ambari Metrics, Spark, ZooKeeper, Tez, Hive)
+
+   8.12. Next, 'Assign Masters'
+Example:
+--History Server ->master
+--App Timeline Server ->master
+--Resource Manager ->master
+--Hive Metastore ->master
+--HiveServer2 ->master
+--ZooKeeper Server->slave1
+--ZooKeeper Server->master
+--Metrics Collector->master
+--Spark History Server ->master
+
+   8.13. Next, 'Assign Slaves and Clients'
+Example:
+--master ->Client
+--Slave1 ->DataNode, NodeManager, Spark Thrift Server
+--Slave2 ->DataNode, NodeManager, Spark Thrift Server
+
+   8.14. Next, 'Customize Services': if there is any config issue, resolve them. Also, take care of warning messages.
+
+   8.15. Next, deploy the cluster. Be patient, it takes a long time.
+
+   8.16. Take care of warning messages (if necessary)
+
+   8.17. Next, you see the dashboard of Ambari
 
 
 # Future work for automation
