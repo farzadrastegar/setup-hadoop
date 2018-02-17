@@ -91,6 +91,7 @@ https://www.youtube.com/watch?v=usYJbMRXxew&index=4&list=PLhd4MmrFf8CXULSLNIxuoY
          $ ./mypdsh.bash <usernames> <ip-addresses> yum-repos.bash
 
 7. Install and start Ambari on a server node.
+
    7.1. Install Ambari on a server node
 
          $ yum install ambari-server
@@ -108,11 +109,13 @@ https://www.youtube.com/watch?v=usYJbMRXxew&index=4&list=PLhd4MmrFf8CXULSLNIxuoY
          $ ambari-server start
 
    7.5. Go to the following URL (user:admin, pass:admin)
+
    http://localhost:8080
 
 8. Install Hortonworks Data Platform (HDP) on hadooop nodes.
 
    8.1. Using the node where Ambari is installed, go to the following URL (user:admin, pass:admin)
+
    http://localhost:8080
 
    8.2. Click on 'Launch Install Wizard'
@@ -136,21 +139,35 @@ https://www.youtube.com/watch?v=usYJbMRXxew&index=4&list=PLhd4MmrFf8CXULSLNIxuoY
    8.11. Choose Services (e.g. HDFS, Yarn, Ambari Metrics, Spark, ZooKeeper, Tez, Hive)
 
    8.12. Next, 'Assign Masters'
+
 Example:
+
 --History Server ->master
+
 --App Timeline Server ->master
+
 --Resource Manager ->master
+
 --Hive Metastore ->master
+
 --HiveServer2 ->master
+
 --ZooKeeper Server->slave1
+
 --ZooKeeper Server->master
+
 --Metrics Collector->master
+
 --Spark History Server ->master
 
    8.13. Next, 'Assign Slaves and Clients'
+
 Example:
+
 --master ->Client
+
 --Slave1 ->DataNode, NodeManager, Spark Thrift Server
+
 --Slave2 ->DataNode, NodeManager, Spark Thrift Server
 
    8.14. Next, 'Customize Services': if there is any config issue, resolve them. Also, take care of warning messages.
