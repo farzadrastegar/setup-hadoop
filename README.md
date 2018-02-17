@@ -100,7 +100,7 @@ https://www.youtube.com/watch?v=usYJbMRXxew&index=4&list=PLhd4MmrFf8CXULSLNIxuoY
 
          $ ambari-server setup
 
-   7.3 (Optional) After running the command above, choose the "Custom JDK" option in case you would like to bypass java installation and enter the path of Java_HOME yourself. In a separate terminal window use the following command to find your JAVA_HOME path and use the output of the command for JAVA_HOME during Ambari installation.
+   7.3 (Optional) After running the command above, choose the "Custom JDK" option in case you would like to bypass java installation. In this case, you'll need to enter JAVA_HOME during Ambari initialization. In order to find the JAVA_HOME path, in a separate terminal window run the following command and use the output of the command for JAVA_HOME during Ambari initialization.
 
          $ ls -ltr $(ls -ltr $(which java) | awk '{print $NF}') | awk '{print $NF}' | sed 's/bin/bin /g' | cut -d' ' -f1
 
