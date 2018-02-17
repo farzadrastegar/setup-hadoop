@@ -142,33 +142,33 @@ https://www.youtube.com/watch?v=usYJbMRXxew&index=4&list=PLhd4MmrFf8CXULSLNIxuoY
 
    Example:
 
---History Server ->master
+   --History Server ->master
 
---App Timeline Server ->master
+   --App Timeline Server ->master
 
---Resource Manager ->master
+   --Resource Manager ->master
 
---Hive Metastore ->master
+   --Hive Metastore ->master
 
---HiveServer2 ->master
+   --HiveServer2 ->master
 
---ZooKeeper Server->slave1
+   --ZooKeeper Server->slave1
 
---ZooKeeper Server->master
+   --ZooKeeper Server->master
 
---Metrics Collector->master
+   --Metrics Collector->master
 
---Spark History Server ->master
+   --Spark History Server ->master
 
    8.13. Next, 'Assign Slaves and Clients'
 
-Example:
+   Example:
 
---master ->Client
+   --master ->Client
 
---Slave1 ->DataNode, NodeManager, Spark Thrift Server
+   --Slave1 ->DataNode, NodeManager, Spark Thrift Server
 
---Slave2 ->DataNode, NodeManager, Spark Thrift Server
+   --Slave2 ->DataNode, NodeManager, Spark Thrift Server
 
    8.14. Next, 'Customize Services': if there is any config issue, resolve them. Also, take care of warning messages.
 
