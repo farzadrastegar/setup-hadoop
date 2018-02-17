@@ -140,7 +140,7 @@ https://www.youtube.com/watch?v=usYJbMRXxew&index=4&list=PLhd4MmrFf8CXULSLNIxuoY
 
    8.12. Next, 'Assign Masters'
 
-Example:
+   Example:
 
 --History Server ->master
 
