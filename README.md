@@ -23,10 +23,12 @@ A step-by-step tutorial on setting up a set of machines for Hortonworks Data Pla
 
     \<netmask\>: network netmask, e.g. 255.255.255.0
 
-   2.1.1. (If necessary) download jre/jdk rpm files and run the following script on the frontend machine to configure java repository.
+   2.1.1. (If necessary) download jre/jdk rpm files and run the following script on the frontend machine to configure java repository for hadoop cluster nodes (Note: the script installs jdk-8u151-linux-x64.rpm).
 
-         $ cd lib
-         $ ./java-repo.bash <pxe-server-ip> <jre rpm path> <jdk rpm path> <user@repo-server-ip>
+         $ cp samples/install-java-jdk-8u151.bash .
+         $ ./mypdsh.bash <usernames> <ip-addresses> install-java-jdk-8u151.bash
+
+   \<usernames\> and \<ip-addresses\> represent two file names containing the root username and IP address of hadoop cluster nodes respectively. Each username or IP address reside in a separate line.
 
    2.2. (If necessary) go to the BIOS menu of every machine in hadoop cluster and set them to boot from network (PXE boot enabled)
    Intel LAN Controller -> Enabled
