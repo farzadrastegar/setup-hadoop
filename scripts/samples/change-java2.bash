@@ -1,7 +1,8 @@
 #!/bin/bash
 
 #this can be extracted from the command 'alternatives --config java'
-javaOption=$1
+javaOption=`alternatives --display java | grep ^/ | wc -l`
+((javaOption++))
 
 java -version
 
