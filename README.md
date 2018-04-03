@@ -110,13 +110,13 @@ Before-doing-4. (If necessary) download jre/jdk rpm files and run the following 
 
          $ yum install ambari-server
 
-   7.2. Initialize Ambari (installs Java by default). 
+   7.2. Initialize Ambari (installs Java by default). If you already installed Java on hadoop cluster nodes, skip this step and go to 7.3.
 
          $ ambari-server setup
 
-   7.3 (Optional) After running the command above, choose the "Custom JDK" option in case you would like to bypass java installation. In this case, you'll need to enter JAVA_HOME during Ambari initialization. In order to find the JAVA_HOME path, in a separate terminal window run the following command and use the output of the command for JAVA_HOME during Ambari initialization.
+   7.3 (Optional) In case you already installed Java on hadoop cluster nodes and would like to skip Java installation during initializing Ambari, use the following command instead of the command in 7.2.
 
-         $ ls -ltr $(ls -ltr $(which java) | awk '{print $NF}') | awk '{print $NF}' | sed 's/bin/bin /g' | cut -d' ' -f1
+         $ ambari-server setup -j /usr/java/default
 
    7.4. Start Ambari server
 
