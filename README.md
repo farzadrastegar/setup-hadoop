@@ -74,6 +74,10 @@ Before-doing-4. (If necessary) download jre/jdk rpm files and run the following 
 
          $ ./mypdsh.bash <usernames> <ip-addresses> pre1-noquestions-ambari-setup.sh
 
+   4.1.3. Reboot all nodes.
+
+         $ ./mypdsh.bash <usernames> <ip-addresses> reboot.bash
+
    4.2. Validate configureations.
 
    4.2.1. Change "$1", "$2", and "read" commands in lib/pre1-test-ambari-setup.sh and name it pre1-noquestions-test-ambari-setup.sh.
