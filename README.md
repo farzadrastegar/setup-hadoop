@@ -86,7 +86,12 @@ Before-doing-4. (If necessary) download jre/jdk rpm files and run the following 
 
          $ ./mypdsh.bash <usernames> <ip-addresses> pre1-noquestions-test-ambari-setup.sh
 
-   4.2.3. See output at root@\<node-hostname\>:~/host-config/pre1-noquestions-test-ambari-setup.sh.out. There shouldn't be any "NOT" term in the file.
+   4.2.3. See output at root@\<node-hostname\>:~/host-config/pre1-noquestions-test-ambari-setup.sh.out. There shouldn't be any "NOT" term in the file. Note: if transparent_hugepage is NOT disabled, use the script in samples/disable-transparent_hugepage-using-crontab.bash and reboot as follows.
+
+         $ cp samples/disable-transparent_hugepage-using-crontab.bash .
+         $ ./mypdsh.bash <usernames> <ip-addresses> disable-transparent_hugepage-using-crontab.bash
+         $ ./mypdsh.bash <usernames> <ip-addresses> reboot.bash
+
 
 5. Prepare Ambari/HDP repositories using the following URL in a machine called the repository server. This server that is configured to contain all the Ambari/HDP repositories is called 'master1.hadoopcluster.webranking' in our scripts laster on. This server is separated from hadoop nodes. In other words, the frontend machine and the repository server could be two virtual machines serving to configure the hadoop cluster.
 https://www.youtube.com/watch?v=usYJbMRXxew&index=4&list=PLhd4MmrFf8CXULSLNIxuoY49mVDGKlMk3
