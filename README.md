@@ -106,6 +106,10 @@ Before-doing-4. (If necessary) download jre/jdk rpm files and run the following 
 
 7. Install and start Ambari on a server node.
 
+   7.0. (Optional but usually necessary) Install database on master node. The following link shows how to install mysql in Centos7.
+
+    https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-centos-7
+
    7.1. Install Ambari on a server node
 
          $ yum install ambari-server
