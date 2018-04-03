@@ -106,21 +106,58 @@ Before-doing-4. (If necessary) download jre/jdk rpm files and run the following 
 
 7. Install and start Ambari on a server node.
 
-   7.0. (Optional but usually necessary) Install database on master node. The following link shows how to install mysql in Centos7.
+   7.0. Install database on master node. We use mysql here. The following link shows how to install mysql in Centos7.
 
     https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-centos-7
+
+   7.0.1. Login to mysql and run the following commands to create necessary usernames and databases for ambari installation.
+
+         $ mysql -u root -p
+         mysql> CREATE USER 'ambari'@'<MASTER NODE HOSTNAME or IP HERE>' IDENTIFIED BY '<PASSWORD HERE>';
+         mysql> GRANT ALL PRIVILEGES ON *.* TO 'ambari'@'<MASTER NODE HOSTNAME or IP HERE>' WITH GRANT OPTION;
+         mysql> CREATE USER 'ambari'@'%' IDENTIFIED BY '<PASSWORD HERE>';
+         mysql> GRANT ALL PRIVILEGES ON *.* TO 'ambari'@'%' WITH GRANT OPTION;
+
+         mysql> CREATE USER 'hive'@'<MASTER NODE HOSTNAME or IP HERE>' IDENTIFIED BY '<PASSWORD HERE>';
+         mysql> GRANT ALL PRIVILEGES ON *.* TO 'hive'@'<MASTER NODE HOSTNAME or IP HERE>' WITH GRANT OPTION;
+         mysql> CREATE USER 'hive'@'%' IDENTIFIED BY '<PASSWORD HERE>';
+         mysql> GRANT ALL PRIVILEGES ON *.* TO 'hive'@'%' WITH GRANT OPTION;
+
+         mysql> FLUSH PRIVILEGES;
+         mysql> CREATE DATABASE ambari;
+         mysql> CREATE DATABASE hive;
 
    7.1. Install Ambari on a server node
 
          $ yum install ambari-server
 
-   7.2. Initialize Ambari (installs Java by default). If you already installed Java on hadoop cluster nodes, skip this step and go to 7.3.
+   7.2. Initialize Ambari (installs Java by default). If you already installed Java on hadoop cluster nodes, skip this step and go to 7.2.1.
 
          $ ambari-server setup
 
-   7.3 (Optional) In case you already installed Java on hadoop cluster nodes and would like to skip Java installation during initializing Ambari, use the following command instead of the command in 7.2.
+   7.2.1. (Optional) In case you already installed Java on hadoop cluster nodes and would like to skip Java installation during initializing Ambari, use the following command instead of the command in 7.2.
 
          $ ambari-server setup -j /usr/java/default
+
+   7.2.2. Say YES to the following question during the setup and enter database information if necessary.
+
+         Enter advanced database configuration [y/n] (n)? y
+
+   7.3. When you see the following message, enter the command mentioned below to fill up ambari database with the schema.
+
+         Ambari Server 'setup' completed successfully.
+         $ mysql -u ambari -p ambari < /var/lib/ambari-server/resources/Ambari-DDL-MySQL-CREATE.sql
+
+   7.3.1. Download mysql JDBC connector jar file from this link (https://dev.mysql.com/downloads/connector/j/5.1.html) and copy it to /usr/share/java. We downloaded mysql-connector-java-5.1.46.jar.
+
+         $ mv mysql-connector-java-5.1.46.jar /usr/share/java 
+         $ ambari-server setup --jdbc-db=mysql --jdbc-driver=/usr/share/java/mysql-connector-java-5.1.46.jar
+
+   7.3.2. Edit ambari.properties config file and add the following line to it.
+
+         $ vim /etc/ambari-server/conf/ambari.properties
+         (inside the file add a line as follows)
+         server.jdbc.driver.path=/usr/share/java/mysql-connector-java-5.1.46.jar
 
    7.4. Start Ambari server
 
