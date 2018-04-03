@@ -46,6 +46,7 @@ A step-by-step tutorial on setting up a set of machines for Hortonworks Data Pla
    3.2. Add other nodes' hostnames to every node
 
    3.2.1. Modify add-cluster-hostnames.bash with IPs and hostnames of nodes and repo server (if any).
+
    3.2.2. Run the following commands.
 
          $ cp lib/add-cluster-hostnames.bash .
@@ -55,6 +56,7 @@ A step-by-step tutorial on setting up a set of machines for Hortonworks Data Pla
 
    3.2.3. Reboot all nodes.
 
+         $ cp samples/reboot.bash .
          $ ./mypdsh.bash <usernames> <ip-addresses> reboot.bash
 
 Before-doing-4. (If necessary) download jre/jdk rpm files and run the following script on the frontend machine to configure java repository for hadoop cluster nodes (Note: the script installs jdk-8u151-linux-x64.rpm).
