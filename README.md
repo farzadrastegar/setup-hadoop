@@ -1,5 +1,10 @@
 # Instructions
-A step-by-step tutorial on setting up a set of machines for Hortonworks Data Platform (HDP) and Ambari 
+A step-by-step tutorial on setting up a set of machines for Hortonworks Data Platform (HDP) and Ambari. This tutorial is specifically tested on Ambari 2.5.1.0 and HDP 2.6.1.0.
+
+Public Repositories:
+Ambari 2.5.1.0: https://docs.hortonworks.com/HDPDocuments/Ambari-2.5.1.0/bk_ambari-installation/content/ambari_repositories.html
+HDP 2.6.1.0: https://docs.hortonworks.com/HDPDocuments/Ambari-2.5.1.0/bk_ambari-installation/content/hdp_26_repositories.html
+ 
 
 1. Install CentOS 7 on a machine that is in charge of installing hadoop cluster. We call this machine the "fontend machine".
 
