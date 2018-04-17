@@ -1,5 +1,3 @@
-# This tutorial is NOT final yet.
-
 # Instructions
 A step-by-step tutorial on setting up a set of machines for Hortonworks Data Platform (HDP) and Ambari. This tutorial is specifically tested on Ambari 2.5.1.0 and HDP 2.6.1.0.
 
@@ -234,6 +232,8 @@ Before-doing-4. (If necessary) download jre/jdk rpm files and run the following 
    --Slave2 ->DataNode, NodeManager, Spark Thrift Server
 
    8.14. Next, 'Customize Services': if there is any config issue, resolve them. Also, take care of warning messages.
+
+   8.14.1. Under HDFS: 'Namenode directories' should be '/hadoop/hdfs/namenode'.
 
    8.15. Next, deploy the cluster. Be patient, it takes a long time.
 
