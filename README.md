@@ -31,13 +31,25 @@ HDP 2.6.1.0: https://docs.hortonworks.com/HDPDocuments/Ambari-2.5.1.0/bk_ambari-
 
     \<netmask\>: network netmask, e.g. 255.255.255.0
 
-   2.2. (If necessary) go to the BIOS menu of every machine in hadoop cluster and set them to boot from network (PXE boot enabled)
+   2.2. Reboot the frotend machine.
+
+         $ reboot
+
+   2.3. After the reboot make sure that all the services are up and running using the commands below. The first command shows the hostname of the frontend machine. The remainder of the commands must show "running" in their output. If a service is not running, use the command 'service SERVICE-NAME-HERE start' to run it. 
+
+         $ hostname -f
+         $ service dhcpd status
+         $ service vsftpd status
+         $ service xinetd status
+         $ service tftp status
+
+   2.4. (If necessary) go to the BIOS menu of every machine in hadoop cluster and set them to boot from network (PXE boot enabled)
    Intel LAN Controller -> Enabled
    Intel PXE Option ROM -> ON
 
-   2.3. Turn on all the machines and let them install CentOS through the PXE-boot server (the frontend machine).
+   2.5. Turn on all the machines and let them install CentOS through the PXE-boot server (the frontend machine).
 
-   2.4. Setup network/IP configurations on all the nodes.
+   2.6. After CentOS installation, setup network/IP configurations on all the nodes.
 
 3. Setup pawssordless ssh and hostnames on all the nodes in hadoop cluster.
 
