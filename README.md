@@ -17,9 +17,18 @@ HDP 2.6.1.0: https://docs.hortonworks.com/HDPDocuments/Ambari-2.5.1.0/bk_ambari-
 
 2. Setup a PXE-boot server on the frontend machine and install CentOS 7 on all hadoop cluster nodes.
 
-   2.1. Run the following script to setup PXE boot server on the frontend machine. All the files and directories under the 'scripts' directory are required to run the script properly. Make sure that the 'CentOS-*-DVD-*.iso' file is available so that the script can mount and use it.
+   2.1. Setup PXE-boot server
+
+   2.1.1. (If using CD/DVD-ROM for linux intallation) Run the following script to setup PXE boot server on the frontend machine. All the files and directories under the 'scripts' directory are required to run the script properly. Make sure that the CentOS CD/DVD is in the CD/DVD-ROM so that the script can mount and use it.
 
          $ ./pxe-boot-server.sh <machine-ip> <desired-hostname> <leftmost-ip-range> <rightmost-ip-range> <netmask>
+
+   2.1.2. (If using ISO file for linux intallation) Run the following script to setup PXE boot server on the frontend machine. All the files and directories under the 'scripts' directory are required to run the script properly. Make sure to copy pxe-boot-server-no-cdrom.sh from samples and change line 11 with the path of the 'CentOS-*-DVD-*.iso' file as follows.
+
+         $ cp samples/pxe-boot-server-no-cdrom.sh .
+         (edit the file and change the following line)
+         DEV_CDROM="/path/to/iso/file"
+         $ ./pxe-boot-server-no-cdrom.sh <machine-ip> <desired-hostname> <leftmost-ip-range> <rightmost-ip-range> <netmask>
 
     \<machine-ip\>: the IP address of the frontend machine, e.g. 192.168.10.10
 
