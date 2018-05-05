@@ -62,7 +62,7 @@ HDP 2.6.1.0: https://docs.hortonworks.com/HDPDocuments/Ambari-2.5.1.0/bk_ambari-
 
 3. Setup pawssordless ssh and hostnames on all the nodes in hadoop cluster.
 
-   3.1. Run the following script on the frontend machine.
+   3.1. Run the following script on the frontend machine to setup passwordless ssh.
 
          $ ./pre0-after-linux-installation.bash <usernames> <ip-addresses> <desired-hostnames>
 
@@ -74,62 +74,82 @@ HDP 2.6.1.0: https://docs.hortonworks.com/HDPDocuments/Ambari-2.5.1.0/bk_ambari-
 
    3.2. Add other nodes' hostnames to every node
 
-   3.2.1. Run the following commands (Note: make sure you already installed sshpass on the frotend machine. In order to install sshpass, run this command on the frontend machine: 'yum install sshpass').
+   3.2.1. Introduce nodes to each other with the following commands (Note: make sure you already installed sshpass on the frotend machine. In order to install sshpass, run this command on the frontend machine: 'yum install sshpass').
 
          $ yum install sshpass 
-         $ ./add-cluster-hostnames.bash <usernames> <ip-addresses> <desired-hostnames>
+         $ cp lib/add-cluster-hostnames.bash . 
+         (edit add-cluster-hostnames.bash and add all nodes' IPs and hostnames)
+         $ ./mypdsh.bash <usernames> <ip-addresses> add-cluster-hostnames.bash
 
    \<usernames\>, \<ip-addresses\>, and \<desired-hostnames\> represent three file names containing the root username, IP address of hadoop cluster nodes, and desired hostnames respectively. Each username, IP address, or hostname resides in a separate line. Note: desired hostnames are the same hostnames used earlier.
 
-   3.2.2. Reboot all nodes.
+   3.2.2. Setup each node's hostname.
+
+         $ ./add-cluster-hostnames2.bash <usernames> <ip-addresses> <desired-hostnames>
+
+   \<usernames\>, \<ip-addresses\>, and \<desired-hostnames\> are the same as above. Note that this file is differnt from the one used in the previous step.
+
+   3.2.3. Copy/paste the blocks of IP/Hostanmes that were already added to add-cluster-hostnames.bash into the frontend machine configurations.
+
+         $ vim /etc/hosts
+         (add the blocks of IP/Hostnames to the end of this file)
+
+   3.2.4. Reboot all nodes.
 
          $ cp samples/reboot.bash .
          $ ./mypdsh.bash <usernames> <ip-addresses> reboot.bash
+         (reboot the frontend machine also)
+         $ reboot
 
 Before-doing-4. (If necessary) download jre/jdk rpm files and run the following script on the frontend machine to configure java repository for hadoop cluster nodes (Note: the script installs jdk-8u151-linux-x64.rpm).
 
          $ cp samples/install-java-jdk-8u151.bash .
          $ ./mypdsh.bash <usernames> <ip-addresses> install-java-jdk-8u151.bash
 
-4. Run pre-ambari configurations.
+4. Prepare Ambari/HDP repositories using the following URL in a machine called the repository server. This server that is configured to contain all the Ambari/HDP repositories is called 'master1.hadoopcluster.webranking' in our scripts laster on. This server is different from hadoop nodes. In other words, the frontend machine and the repository server could be considered as two virtual machines serving to configure the hadoop cluster. After setting up the repository server, make sure to copy the ~/.ssh directory from one of hadoop cluster nodes to the home directory of the repository server so that the nodes can ssh the repository server without password. 
 
-   4.1. Configure all nodes.
+    https://www.youtube.com/watch?v=usYJbMRXxew&index=4&list=PLhd4MmrFf8CXULSLNIxuoY49mVDGKlMk3
 
-   4.1.1. Change "$1", "$2", and "read" commands in pre1-ambari-setup.sh and name it pre1-noquestions-ambari-setup.sh.
+5. Prepare /etc/yum.repos.d in every node.
 
-   4.1.2. Run configurations on all nodes.
+   5.1. Login to one of cluster nodes and make a copy of its ssh directory. 
+
+         $ ssh USER@NODE1-ADDRESS
+         $ cp lib/yum-repos.bash .
+
+   5.1. Make a backup directory and move current repo files to it. Copy .repo files from the repository server, i.e. master1.hadoopcluster.webranking, to /etc/yum.repos.d.
+
+         $ cp lib/yum-repos.bash .
+         $ ./mypdsh.bash <usernames> <ip-addresses> yum-repos.bash
+
+6. Run pre-ambari configurations.
+
+   6.1. Configure all nodes.
+
+   6.1.1. Change "$1", "$2", and "read" commands in pre1-ambari-setup.sh and name it pre1-noquestions-ambari-setup.sh.
+
+   6.1.2. Run configurations on all nodes.
 
          $ ./mypdsh.bash <usernames> <ip-addresses> pre1-noquestions-ambari-setup.sh
 
-   4.1.3. Reboot all nodes.
+   6.1.3. Reboot all nodes.
 
          $ ./mypdsh.bash <usernames> <ip-addresses> reboot.bash
 
-   4.2. Validate configureations.
+   6.2. Validate configureations.
 
-   4.2.1. Change "$1", "$2", and "read" commands in lib/pre1-test-ambari-setup.sh and name it pre1-noquestions-test-ambari-setup.sh.
+   6.2.1. Change "$1", "$2", and "read" commands in lib/pre1-test-ambari-setup.sh and name it pre1-noquestions-test-ambari-setup.sh.
 
-   4.2.2. Run validations on all nodes.
+   6.2.2. Run validations on all nodes.
 
          $ ./mypdsh.bash <usernames> <ip-addresses> pre1-noquestions-test-ambari-setup.sh
 
-   4.2.3. See output at root@\<node-hostname\>:~/host-config/pre1-noquestions-test-ambari-setup.sh.out. There shouldn't be any "NOT" term in the file. Note: if transparent_hugepage is NOT disabled, use the script in samples/disable-transparent_hugepage-using-crontab.bash and reboot as follows.
+   6.2.3. See output at root@\<node-hostname\>:~/host-config/pre1-noquestions-test-ambari-setup.sh.out. There shouldn't be any "NOT" term in the file. Note: if transparent_hugepage is NOT disabled, use the script in samples/disable-transparent_hugepage-using-crontab.bash and reboot as follows.
 
          $ cp samples/disable-transparent_hugepage-using-crontab.bash .
          $ ./mypdsh.bash <usernames> <ip-addresses> disable-transparent_hugepage-using-crontab.bash
          $ ./mypdsh.bash <usernames> <ip-addresses> reboot.bash
 
-
-5. Prepare Ambari/HDP repositories using the following URL in a machine called the repository server. This server that is configured to contain all the Ambari/HDP repositories is called 'master1.hadoopcluster.webranking' in our scripts laster on. This server is different from hadoop nodes. In other words, the frontend machine and the repository server could be considered as two virtual machines serving to configure the hadoop cluster. After setting up the repository server, make sure to copy the ~/.ssh directory from one of hadoop cluster nodes to the home directory of the repository server so that the nodes can ssh the repository server without password. 
-
-    https://www.youtube.com/watch?v=usYJbMRXxew&index=4&list=PLhd4MmrFf8CXULSLNIxuoY49mVDGKlMk3
-
-6. Prepare /etc/yum.repos.d in every node.
-
-   6.1. Make a backup directory and move current repo files to it. Copy .repo files from the repository server, i.e. master1.hadoopcluster.webranking, to /etc/yum.repos.d.
-
-         $ cp lib/yum-repos.bash .
-         $ ./mypdsh.bash <usernames> <ip-addresses> yum-repos.bash
 
 7. Install and start Ambari on a server node.
 
