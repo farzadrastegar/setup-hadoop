@@ -79,7 +79,7 @@ HDP 2.6.1.0: https://docs.hortonworks.com/HDPDocuments/Ambari-2.5.1.0/bk_ambari-
          $ yum install sshpass 
          $ ./add-cluster-hostnames.bash <usernames> <ip-addresses> <desired-hostnames>
 
-   \<usernames\>, \<ip-addresses\>, and \<desired-hostnames\> represent three file names containing the root username, IP address of hadoop cluster nodes, and desired hostnames respectively. Each username, IP address, or hostname resides in a separate line.
+   \<usernames\>, \<ip-addresses\>, and \<desired-hostnames\> represent three file names containing the root username, IP address of hadoop cluster nodes, and desired hostnames respectively. Each username, IP address, or hostname resides in a separate line. Note: desired hostnames are the same hostnames used earlier.
 
    3.2.2. Reboot all nodes.
 
