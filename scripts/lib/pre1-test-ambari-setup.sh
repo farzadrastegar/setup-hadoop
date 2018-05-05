@@ -76,7 +76,7 @@ case "${lsb_dist}" in
             sestatus 2>/dev/null | grep "SELinux status" | grep "enabled" >/dev/null && echo "SELinux is NOT disabled" || echo "SELinux is disabled"
 
             printf "## Info: Test of disabled Transparent Huge Pages\n"
-            cat ${TRANSPARENT_HUGEPAGE} | grep ^never$ >/dev/null && echo "Transparent Huge Pages is disabled" || echo "Transparent Huge Pages is NOT disabled"
+            cat ${TRANSPARENT_HUGEPAGE} | grep "\[never\]" >/dev/null && echo "Transparent Huge Pages is disabled" || echo "Transparent Huge Pages is NOT disabled"
 
             printf "## Info: Test of disabled iptables & firewall\n"
             systemctl status iptables
