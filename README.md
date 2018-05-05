@@ -112,12 +112,16 @@ Before-doing-4. (If necessary) download jre/jdk rpm files and run the following 
 
 5. Prepare /etc/yum.repos.d in every node.
 
-   5.1. Login to one of cluster nodes and make a copy of its ssh directory. 
+   5.1. Make ssh to the repository server passwordless. In order to do so, login to one of cluster nodes and make a copy of its ssh directory. Then, send the copy to the repository server/ 
 
-         $ ssh USER@NODE1-ADDRESS
-         $ cp lib/yum-repos.bash .
+         $ ssh USERNAME-HERE@NODE1-IP-ADDRESS-HERE
+         $ tar cvzf ssh.tar.gz ~/.ssh
+         $ scp ssh.tar.gz ROOT-USERNAME-HERE@REPOSITORY-SERVER-IP-HERE:~
+         $ ssh ROOT-USERNAME-HERE@REPOSITORY-SERVER-IP-HERE
+         (enter the repository server password and run the following command in the repository server)
+         $ cd; rm -fr .ssh; tar xvzf ssh.tar.gz
 
-   5.1. Make a backup directory and move current repo files to it. Copy .repo files from the repository server, i.e. master1.hadoopcluster.webranking, to /etc/yum.repos.d.
+   5.2. Back to the frontend machine, make a backup directory and move current repo files to it. Copy .repo files from the repository server, i.e. master1.hadoopcluster.webranking, to /etc/yum.repos.d using the following commands.
 
          $ cp lib/yum-repos.bash .
          $ ./mypdsh.bash <usernames> <ip-addresses> yum-repos.bash
