@@ -74,10 +74,11 @@ HDP 2.6.1.0: https://docs.hortonworks.com/HDPDocuments/Ambari-2.5.1.0/bk_ambari-
 
    3.2. Add other nodes' hostnames to every node
 
-   3.2.1. Modify add-cluster-hostnames.bash with IPs and hostnames of nodes and repo server (if any).
+   3.2.1. Find add-cluster-hostnames.bash in the 'lib' directory and modify it with IPs and hostnames of nodes and repo server (if any).
 
-   3.2.2. Run the following commands.
+   3.2.2. Run the following commands (Note: make sure you already installed sshpass on the frotend machine. In order to install sshpass, run this command on the frontend machine: 'yum install sshpass').
 
+         $ yum install sshpass 
          $ cp lib/add-cluster-hostnames.bash .
          $ ./mypdsh.bash <usernames> <ip-addresses> add-cluster-hostnames.bash
 
