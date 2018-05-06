@@ -200,13 +200,13 @@ Before-doing-4. (If necessary) download jre/jdk rpm files and run the following 
 
          $ ambari-server setup -j /usr/java/default
 
-   7.2.3. Decide if you would like to go with Ambari's default database.
+   7.2.3. Decide if you would like to go with Ambari's default configuration.
 
    7.2.3.1. (Recommended) When the following question appears, press ENTER and choose the default database configuration. Then, go to 7.3.
 
          Enter advanced database configuration [y/n] (n)?
 
-   7.2.3.2. (OR) Say YES to the following question during the initialization and do Mysql database configuration in the following steps.
+   7.2.3.2. (OR) Say YES to the following question during the initialization and do Mysql database configuration in the following steps (this option also requires steps 7.0 and 7.0.1 above).
 
          Enter advanced database configuration [y/n] (n)? y
 
