@@ -225,7 +225,7 @@ Before-doing-4. (If necessary) download jre/jdk rpm files and run the following 
 
    http://localhost:8080
 
-8. Install Hortonworks Data Platform (HDP) on hadooop nodes. The following steps are also available in [this link](https://www.youtube.com/watch?v=f9Yw-czkaKg) at 3:30.
+8. Install Hortonworks Data Platform (HDP) on hadooop nodes. The following steps are also available in [this video](https://www.youtube.com/watch?v=f9Yw-czkaKg) at 3:30.
 
    8.1. Using the node where Ambari is installed, go to the following URL (user:admin, pass:admin)
 
