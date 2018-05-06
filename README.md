@@ -202,7 +202,7 @@ Before-doing-4. (If necessary) download jre/jdk rpm files and run the following 
 
    7.2.3. Decide if you would like to go with Ambari's default database.
 
-   7.2.3.1. (Recommended) When the following question appears, press ENTER and choose the default database configuration. Then, go to 7.4.
+   7.2.3.1. (Recommended) When the following question appears, press ENTER and choose the default database configuration. Then, go to 7.3.
 
          Enter advanced database configuration [y/n] (n)?
 
@@ -226,11 +226,11 @@ Before-doing-4. (If necessary) download jre/jdk rpm files and run the following 
          (inside the file add a line as follows)
          server.jdbc.driver.path=/usr/share/java/mysql-connector-java-5.1.46.jar
 
-   7.4. Start Ambari server
+   7.3. Start Ambari server
 
          $ ambari-server start
 
-   7.5. Go to the following URL (user:admin, pass:admin)
+   7.4. Go to the following URL (user:admin, pass:admin)
 
    http://localhost:8080
 
