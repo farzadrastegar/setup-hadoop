@@ -110,11 +110,7 @@ Before-doing-4. (If necessary) download jre/jdk rpm files and run the following 
 
     https://www.youtube.com/watch?v=usYJbMRXxew&index=4&list=PLhd4MmrFf8CXULSLNIxuoY49mVDGKlMk3
 
-   4.1. This tutorial uses Mysql for Hive in Hadoop. Since local repositories in hadoop cluster nodes will be configured (see next step), make sure to setup Mysql network repository in the repository server, i.e. 'master1.hadoopcluster.webranking', using the instructions in the following links. That done, there will be a repo file for Mysql in the /etc/yum.repos.d directory of the repository server.
-
-    https://community.hortonworks.com/questions/91032/how-to-create-the-mysql-local-repository-for-insta.html
-
-    https://www.tecmint.com/setup-yum-repository-in-centos-7/
+   4.1. This tutorial uses Mysql for Hive in Hadoop. Since local repositories in hadoop cluster nodes will be configured (see next step), make sure to setup Mysql network repository in the repository server, i.e. 'master1.hadoopcluster.webranking', using the instructions in [this link](https://community.hortonworks.com/questions/91032/how-to-create-the-mysql-local-repository-for-insta.html) or [this link](https://www.tecmint.com/setup-yum-repository-in-centos-7/). That done, there will be a repo file for Mysql in the /etc/yum.repos.d directory of the repository server.
 
 5. Prepare /etc/yum.repos.d in every node.
 
@@ -229,7 +225,7 @@ Before-doing-4. (If necessary) download jre/jdk rpm files and run the following 
 
    http://localhost:8080
 
-8. Install Hortonworks Data Platform (HDP) on hadooop nodes.
+8. Install Hortonworks Data Platform (HDP) on hadooop nodes. The following steps are also available in [this link](https://www.youtube.com/watch?v=f9Yw-czkaKg) at 3:30.
 
    8.1. Using the node where Ambari is installed, go to the following URL (user:admin, pass:admin)
 
