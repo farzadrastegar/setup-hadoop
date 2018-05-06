@@ -110,19 +110,26 @@ Before-doing-4. (If necessary) download jre/jdk rpm files and run the following 
 
     https://www.youtube.com/watch?v=usYJbMRXxew&index=4&list=PLhd4MmrFf8CXULSLNIxuoY49mVDGKlMk3
 
+   4.1. This tutorial uses Mysql for Hive in Hadoop. Since local repositories in hadoop cluster nodes will be configured (see next step), make sure to setup Mysql network repository in the repository server, i.e. 'master1.hadoopcluster.webranking', using the instructions in the following links. That done, there will be a repo file for Mysql in the /etc/yum.repos.d directory of the repository server.
+
+    https://community.hortonworks.com/questions/91032/how-to-create-the-mysql-local-repository-for-insta.html
+
+    https://www.tecmint.com/setup-yum-repository-in-centos-7/
+
 5. Prepare /etc/yum.repos.d in every node.
 
    5.1. Make ssh to the repository server passwordless. In order to do so, login to one of cluster nodes and make a copy of its ssh directory. Then, send the copy to the repository server/ 
 
          $ ssh USERNAME-HERE@NODE1-IP-ADDRESS-HERE
          $ tar cvzf ssh.tar.gz ~/.ssh
-         $ scp ssh.tar.gz ROOT-USERNAME-HERE@REPOSITORY-SERVER-IP-HERE:~
-         $ ssh ROOT-USERNAME-HERE@REPOSITORY-SERVER-IP-HERE
+         $ scp ssh.tar.gz adminuser@master1.hadoopcluster.webranking:~
+         $ ssh adminuser@master1.hadoopcluster.webranking
          (enter the repository server password and run the following command in the repository server)
          $ cd; rm -fr .ssh; tar xvzf ssh.tar.gz
 
-   5.2. Back to the frontend machine, make a backup directory and move current repo files to it. Copy .repo files from the repository server, i.e. master1.hadoopcluster.webranking, to /etc/yum.repos.d using the following commands.
+   5.2. Back to the frontend machine, make a backup directory and move current repo files to it. Copy .repo files from the repository server, i.e. master1.hadoopcluster.webranking, to /etc/yum.repos.d using the following commands. Note: the first command below makes the ftp service of the frontend machine available for the repository server.
 
+         $ scp lib/pxe.repo adminuser@master1.hadoopcluster.webranking:/etc/yum.repos.d/
          $ cp lib/yum-repos.bash .
          $ ./mypdsh.bash <usernames> <ip-addresses> yum-repos.bash
 
