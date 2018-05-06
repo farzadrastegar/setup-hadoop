@@ -1,0 +1,5 @@
+[pxe-repo]
+name=pxe-repo
+baseurl=ftp://10.1.228.22/pub
+enabled=1
+gpgcheck=0
