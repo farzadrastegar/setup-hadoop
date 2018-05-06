@@ -125,8 +125,9 @@ Before-doing-4. (If necessary) download jre/jdk rpm files and run the following 
 
    Note: 'master1.hadoopcluster.webranking' represents the repository server (see step 4).
 
-   5.2. Back to the frontend machine, make a backup directory and move current repo files to it. Copy .repo files from the repository server, i.e. master1.hadoopcluster.webranking, to /etc/yum.repos.d using the following commands. Note: the first command below makes the ftp service of the frontend machine available for the repository server.
+   5.2. Back to the frontend machine, make a backup directory and move current repo files to it. Copy .repo files from the repository server, i.e. master1.hadoopcluster.webranking, to /etc/yum.repos.d using the following commands. Note: the 'scp' command below makes the ftp service of the frontend machine available for the repository server.
 
+         (open lib/pxe.repo and replace the IP address in the FTP url with the IP address of your frontend machine. That is, 'baseurl=ftp://FRONTEND-IP-ADDRESS-HERE/pub')
          $ scp lib/pxe.repo adminuser@master1.hadoopcluster.webranking:/etc/yum.repos.d/
          $ cp lib/yum-repos.bash .
          $ ./mypdsh.bash <usernames> <ip-addresses> yum-repos.bash
