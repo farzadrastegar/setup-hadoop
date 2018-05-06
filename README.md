@@ -206,7 +206,7 @@ Before-doing-4. (If necessary) download jre/jdk rpm files and run the following 
 
          Enter advanced database configuration [y/n] (n)?
 
-   7.2.3.2. (OR) Say YES to the following question during the setup and enter database information if necessary.
+   7.2.3.2. (OR) Say YES to the following question during the initialization and do Mysql database configuration in the following steps.
 
          Enter advanced database configuration [y/n] (n)? y
 
@@ -215,7 +215,7 @@ Before-doing-4. (If necessary) download jre/jdk rpm files and run the following 
          Ambari Server 'setup' completed successfully.
          $ mysql -u ambari -p ambari < /var/lib/ambari-server/resources/Ambari-DDL-MySQL-CREATE.sql
 
-   7.2.3.2.2. Download mysql JDBC connector jar file from this link (https://dev.mysql.com/downloads/connector/j/5.1.html) and copy it to /usr/share/java. We downloaded mysql-connector-java-5.1.46.jar.
+   7.2.3.2.2. Download mysql JDBC connector jar file from [this link](https://dev.mysql.com/downloads/connector/j/5.1.html) and copy it to /usr/share/java. We downloaded mysql-connector-java-5.1.46.jar.
 
          $ mv mysql-connector-java-5.1.46.jar /usr/share/java 
          $ ambari-server setup --jdbc-db=mysql --jdbc-driver=/usr/share/java/mysql-connector-java-5.1.46.jar
