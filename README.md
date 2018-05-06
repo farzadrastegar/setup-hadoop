@@ -165,11 +165,11 @@ Before-doing-4. (If necessary) download jre/jdk rpm files and run the following 
 
 7. Install and start Ambari on a server node.
 
-   7.0. (IGNORE if default configuration is desired) Install database on master node. We use mysql here. The following link shows how to install mysql in Centos7.
+   7.0. (IGNORE if default configuration is desired) Install database on master node. We use Mysql here. The following link shows how to install mysql in Centos7.
 
     https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-centos-7
 
-   7.0.1. (IGNORE if default configuration is desired) Login to mysql and run the following commands to create necessary usernames and databases for ambari installation.
+   7.0.1. (IGNORE if default configuration is desired) Login to Mysql and run the following commands to create necessary usernames and databases for ambari installation.
 
          $ mysql -u root -p
          mysql> CREATE USER 'ambari'@'<MASTER NODE HOSTNAME or IP HERE>' IDENTIFIED BY '<PASSWORD HERE>';
@@ -215,7 +215,7 @@ Before-doing-4. (If necessary) download jre/jdk rpm files and run the following 
          Ambari Server 'setup' completed successfully.
          $ mysql -u ambari -p ambari < /var/lib/ambari-server/resources/Ambari-DDL-MySQL-CREATE.sql
 
-   7.2.3.2.2. Download mysql JDBC connector jar file from [this link](https://dev.mysql.com/downloads/connector/j/5.1.html) and copy it to /usr/share/java. We downloaded mysql-connector-java-5.1.46.jar.
+   7.2.3.2.2. Download Mysql JDBC connector jar file from [this link](https://dev.mysql.com/downloads/connector/j/5.1.html) and copy it to /usr/share/java. We downloaded mysql-connector-java-5.1.46.jar.
 
          $ mv mysql-connector-java-5.1.46.jar /usr/share/java 
          $ ambari-server setup --jdbc-db=mysql --jdbc-driver=/usr/share/java/mysql-connector-java-5.1.46.jar
