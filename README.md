@@ -127,11 +127,15 @@ Before-doing-4. (If necessary) download jre/jdk rpm files and run the following 
          (enter the repository server password and run the following command in the repository server)
          $ cd; rm -fr .ssh; tar xvzf ssh.tar.gz
 
+   Note: 'adminuser@master1.hadoopcluster.webranking' represents the repository server (see step 4).
+
    5.2. Back to the frontend machine, make a backup directory and move current repo files to it. Copy .repo files from the repository server, i.e. master1.hadoopcluster.webranking, to /etc/yum.repos.d using the following commands. Note: the first command below makes the ftp service of the frontend machine available for the repository server.
 
          $ scp lib/pxe.repo adminuser@master1.hadoopcluster.webranking:/etc/yum.repos.d/
          $ cp lib/yum-repos.bash .
          $ ./mypdsh.bash <usernames> <ip-addresses> yum-repos.bash
+
+   Note: 'adminuser@master1.hadoopcluster.webranking' represents the repository server (see step 4).
 
 6. Run pre-ambari configurations.
 
