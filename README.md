@@ -200,6 +200,10 @@ Before-doing-4. (If necessary) download jre/jdk rpm files and run the following 
 
          $ ambari-server setup -j /usr/java/default
 
+   7.2.2.1. When the following question shows up, press ENTER to accept default answer, i.e. (n). 
+
+         Customize user account for ambari-server daemon [y/n] (n)?
+
    7.2.3. Decide if you would like to go with Ambari's default configuration.
 
    7.2.3.1. (Recommended) When the following question appears, press ENTER and choose the default database configuration. Then, go to 7.3.
