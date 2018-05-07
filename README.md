@@ -192,7 +192,7 @@ Before-doing-4. (If necessary) download jre/jdk rpm files and run the following 
 
    7.2. Initialize Ambari.
 
-   7.2.1. (If Java NOT already installed in hadoop nodes) initialize Ambari (installs Java by default). If you already installed Java on hadoop cluster nodes, skip this step and go to 7.2.2.
+   7.2.1. (If Java NOT already installed in hadoop nodes) initialize Ambari using the following command (installs Java by default) and go to step 7.2.3. If you already installed Java on hadoop cluster nodes, skip this step and go to 7.2.2.
 
          $ ambari-server setup
 
