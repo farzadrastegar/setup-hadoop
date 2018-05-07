@@ -80,13 +80,16 @@ case "${lsb_dist}" in
             cat ${TRANSPARENT_HUGEPAGE} | grep "\[never\]" >/dev/null && echo "Transparent Huge Pages is disabled" || echo "Transparent Huge Pages is NOT disabled"
 
             printf "## Info: Test of disabled iptables & firewall\n"
-            systemctl status iptables
+            iptables_status=$(systemctl status iptables 2>&1)
+            echo ${iptables_status} | grep -i "Unit iptables.service could not be found" >/dev/null && echo "iptables is disabled" || echo "iptables is NOT disabled"
             echo "==============="
-            systemctl status firewalld
+            firewalld_status=$(systemctl status firewalld)
+            echo ${firewalld_status} | grep "dead" >/dev/null && echo "firewalld is disabled" || echo "firewalld is NOT disabled"
             echo "==============="
 
             printf "## Info: Testing ntpd\n"
-            systemctl status ntpd
+            ntpd_status=$(systemctl status ntpd)
+            echo ${ntpd_status} | grep "running" >/dev/null && echo "ntpd is running" || echo "ntpd is NOT running"
             echo "==============="
 
             printf "## Info: Test of file handlers & processes\n"
