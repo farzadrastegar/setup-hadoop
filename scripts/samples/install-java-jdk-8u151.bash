@@ -11,8 +11,9 @@ wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2F
 yum localinstall jdk-8u151-linux-x64.rpm -y
 alternatives --config java <<< ${javaOption}
 
-sh -c "echo export JAVA_HOME=/usr/java/default >> ~/.bashrc"
-sh -c "echo export JAVA_HOME=/usr/java/default >> /etc/environment"
+javahome=`ls -ltr $(ls -ltr $(which java) | awk '{print $NF}') | awk '{print $NF}' | sed 's/\/bin/ \/bin/g' | cut -d' ' -f1`
+sh -c "echo export JAVA_HOME=${javahome} >> ~/.bashrc"
+sh -c "echo export JAVA_HOME=${javahome} >> /etc/environment"
 
 java -version
 
