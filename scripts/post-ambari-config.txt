@@ -1,16 +1,16 @@
 Ambari Setup (steps required after deployment)
 ==============================================
 
-Ambari Panel
-============
+Ambari Dashboard 
+================
 # Increase ResourceManager heap size to 3 MB (if any alerts exist)
 
-Ambari Machine
+Master Machine
 ==============
-# Mysql temporary password
+# Retrieve Mysql temporary password
 sudo grep 'temporary password' /var/log/mysqld.log
 
-# Commands required after first login to mysql
+# Login to Mysql using the password retrieved above and enter the following commands
 ALTER USER 'root'@'localhost' IDENTIFIED BY 'Xxxxxx@xxxx9';
 
 CREATE USER 'hive'@'x.x.x.x' IDENTIFIED BY 'Xxxxxx@xxxx9';
@@ -22,11 +22,12 @@ FLUSH PRIVILEGES;
 
 Slave Machines
 ==============
+# If there is a 'hadoop' directory under /usr/hdp in slave nodes, remove them.
 rm -fr /usr/hdp/hadoop/
 
 Flume Machines
 ==============
-# In case machines with flume restart:
+# One possible error handling in case of existing alerts after setting up Flume:
 mkdir /var/run/flume
 chown flume:hadoop /var/run/flume
 
