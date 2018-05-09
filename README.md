@@ -318,6 +318,8 @@ Before-doing-4. (If necessary) download jre/jdk rpm files and run the following 
 
    8.17. Next, you see the dashboard of Ambari
 
+9. Probably there are some alerts on the dashboard of Ambari after deploying hadoop cluster. Follow the steps in [this document](https://github.com/farzadrastegar/setup-hadoop/blob/master/scripts/post-ambari-config.txt) to finalize deployment. These steps require to do some cofiguration on the dashboard of Ambari as well as hadoop master and slave nodes. After performing all the steps, stop all services on the dashboard of Ambari and start them again.
+
 
 # Future work for automation
 - [ ] Automate CentOS registration confirmation
