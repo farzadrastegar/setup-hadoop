@@ -1,5 +1,3 @@
-# This tutorial is NOT final yet.
-
 # Instructions
 A step-by-step tutorial on setting up a set of machines for Hortonworks Data Platform (HDP) and Ambari. This tutorial is specifically tested on Ambari 2.5.1.0 and HDP 2.6.1.0.
 
