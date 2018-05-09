@@ -10,12 +10,12 @@ Master Machine
 # Retrieve Mysql temporary password
 sudo grep 'temporary password' /var/log/mysqld.log
 
-# Login to Mysql using the password retrieved above and enter the following commands
-ALTER USER 'root'@'localhost' IDENTIFIED BY 'Xxxxxx@xxxx9';
+# Login to Mysql using the password retrieved above and enter the following commands (these commands are based on the assumption of Hive database being Mysql in master node)
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'NEW-MYSQL-ROOT-PASSWORD-HERE';
 
-CREATE USER 'hive'@'x.x.x.x' IDENTIFIED BY 'Xxxxxx@xxxx9';
-GRANT ALL PRIVILEGES ON *.* TO 'hive'@'x.x.x.x' WITH GRANT OPTION;
-CREATE USER 'hive'@'%' IDENTIFIED BY 'Xxxxxx@xxxx9';
+CREATE USER 'hive'@'MYSQL-MACHINE-HOSTNAME-HERE' IDENTIFIED BY 'HIVE-PASSWORD-HERE';
+GRANT ALL PRIVILEGES ON *.* TO 'hive'@'MYSQL-MACHINE-HOSTNAME-HERE' WITH GRANT OPTION;
+CREATE USER 'hive'@'%' IDENTIFIED BY 'HIVE-PASSWORD-HERE';
 GRANT ALL PRIVILEGES ON *.* TO 'hive'@'%' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 
