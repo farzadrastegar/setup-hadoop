@@ -1,5 +1,5 @@
-Ambari Setup
-============
+Ambari Setup (steps required after deployment)
+==============================================
 
 Ambari Panel
 ============
@@ -22,9 +22,7 @@ FLUSH PRIVILEGES;
 
 Slave Machines
 ==============
-mkdir ~/post-ambari
-cd ~/post-ambari
-mv /usr/hdp/hadoop/ .
+rm -fr /usr/hdp/hadoop/
 
 Flume Machines
 ==============
