@@ -202,7 +202,7 @@ Before-doing-4. (If necessary) download jre/jdk rpm files and run the following 
 
          Do you want to change Oracle JDK [y/n] (n)?
 
-   7.2.4. (If Java already installed in hadoop nodes) in case you already installed Java on hadoop cluster nodes and would like to skip Java installation during initializing Ambari, say YES to the following question.
+   7.2.4. (OR If Java already installed in hadoop nodes) in case you already installed Java on hadoop cluster nodes and would like to skip Java installation during initializing Ambari, say YES to the following question.
 
          Do you want to change Oracle JDK [y/n] (n)? y
 
