@@ -1,7 +1,5 @@
 Ambari Setup
 ============
-# use the following command if you already installed java
-ambari-server setup –j /usr/java/default
 
 Ambari Panel
 ============
