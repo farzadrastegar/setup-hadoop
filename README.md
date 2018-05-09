@@ -192,39 +192,55 @@ Before-doing-4. (If necessary) download jre/jdk rpm files and run the following 
 
    7.2. Initialize Ambari.
 
-   7.2.1. (If Java NOT already installed in hadoop nodes) initialize Ambari using the following command (installs Java by default) and go to step 7.2.3. If you already installed Java on hadoop cluster nodes, skip this step and go to 7.2.2.
+   7.2.1. Run the following command to start initializing Ambari.
 
          $ ambari-server setup
 
-   7.2.2. (If Java already installed in hadoop nodes) in case you already installed Java on hadoop cluster nodes and would like to skip Java installation during initializing Ambari, use the following command instead of the command in 7.2.1.
-
-         $ ambari-server setup -j /usr/java/default
-
-   7.2.2.1. When the following question shows up, press ENTER to accept default answer, i.e. (n). 
+   7.2.2. When the following question shows up, press ENTER to accept default answer, i.e. (n). 
 
          Customize user account for ambari-server daemon [y/n] (n)?
 
-   7.2.3. Decide if you would like to go with Ambari's default configuration.
+   7.2.3. (If Java NOT already installed in hadoop nodes) press ENTER to accept default answer, i.e. (n). It installs Java. Then, go to 7.2.5.
 
-   7.2.3.1. (Recommended) When the following question appears, press ENTER and choose the default database configuration. Then, go to 7.3.
+         Do you want to change Oracle JDK [y/n] (n)?
+
+   7.2.4. (If Java already installed in hadoop nodes) in case you already installed Java on hadoop cluster nodes and would like to skip Java installation during initializing Ambari, say YES to the following question.
+
+         Do you want to change Oracle JDK [y/n] (n)? y
+
+   7.2.4.1. When the following options show up, choose 'Custom JDK'.
+
+         [1] Oracle JDK 1.8 + Java Cryptography Extension (JCE) Policy Files 8
+         [2] Oracle JDK 1.7 + Java Cryptography Extension (JCE) Policy Files 7
+         [3] Custom JDK
+         ==============================================================================
+         Enter choice (1): 3
+
+   7.2.4.2. Enter JAVA_HOME (we installed java in this path: /usr/java/jdk1.8.0_151/jre):
+
+         Path to JAVA_HOME: /usr/java/jdk1.8.0_151/jre
+
+   7.2.5. Decide if you would like to go with Ambari's default configuration.
+
+   7.2.5.1. (Recommended) When the following question appears, press ENTER and choose the default database configuration. Then, go to 7.3.
 
          Enter advanced database configuration [y/n] (n)?
 
-   7.2.3.2. (OR) Say YES to the following question during the initialization and do Mysql database configuration in the following steps (this option also requires steps 7.0 and 7.0.1 above).
+   7.2.5.2. (OR) Say YES to the following question during the initialization and do Mysql database configuration in the following steps (this option also requires steps 7.0 and 7.0.1 above).
 
          Enter advanced database configuration [y/n] (n)? y
 
-   7.2.3.2.1. When you see the following message, enter the command mentioned below to fill up ambari database with the schema.
+   7.2.5.2.1. When you see the following message, enter the command mentioned below to fill up ambari database with the schema.
 
          Ambari Server 'setup' completed successfully.
          $ mysql -u ambari -p ambari < /var/lib/ambari-server/resources/Ambari-DDL-MySQL-CREATE.sql
 
-   7.2.3.2.2. Download Mysql JDBC connector jar file from [this link](https://dev.mysql.com/downloads/connector/j/5.1.html) and copy it to /usr/share/java. We downloaded mysql-connector-java-5.1.46.jar.
+   7.2.5.2.2. Download Mysql JDBC connector jar file from [this link](https://dev.mysql.com/downloads/connector/j/5.1.html) and copy it to /usr/share/java. We downloaded mysql-connector-java-5.1.46.jar.
 
          $ mv mysql-connector-java-5.1.46.jar /usr/share/java 
          $ ambari-server setup --jdbc-db=mysql --jdbc-driver=/usr/share/java/mysql-connector-java-5.1.46.jar
 
-   7.2.3.2.3. Edit ambari.properties config file and add the following line to it.
+   7.2.5.2.3. Edit ambari.properties config file and add the following line to it.
 
          $ vim /etc/ambari-server/conf/ambari.properties
          (inside the file add a line as follows)
