@@ -183,6 +183,7 @@ case "${lsb_dist}" in
             ln -sf /usr/share/zoneinfo/Asia/Tehran /etc/localtime
             ntpd -qg || true
             chkconfig ntpd on || true
+            systemctl disable chronyd || true
             service ntpd restart || true
 
             printf "## Info: Setting up file handlers & processes\n"
