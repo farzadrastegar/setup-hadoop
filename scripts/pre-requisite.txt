@@ -3,7 +3,7 @@ Ambari Setup (steps required before deployment)
 
 Repository Machine
 ==================
-# Make sure to run the following commands.
+# Make sure to run the following commands because HDP.repo and HDP-UTILS.repo are already included in hdp.repo.
 mkdir -p /etc/yum.repos.d/bak
 mv /etc/yum.repos.d/HDP.repo /etc/yum.repos.d/bak
 mv /etc/yum.repos.d/HDP-UTILS.repo /etc/yum.repos.d/bak
