@@ -1,0 +1,18 @@
+Ambari Setup (steps required before deployment)
+==============================================
+
+Repository Machine
+==================
+# Make sure to run the following commands.
+mkdir -p /etc/yum.repos.d/bak
+mv /etc/yum.repos.d/HDP.repo /etc/yum.repos.d/bak
+mv /etc/yum.repos.d/HDP-UTILS.repo /etc/yum.repos.d/bak
+
+PXE boot server (Frontend Machine)
+==================================
+# Make sure to edit root password in the kickstart config file in either of the following ways.
+# A. Use unencrypted password
+rootpw "password here"
+
+# or B. Use encrypted password (see: https://thornelabs.net/2014/02/03/hash-roots-password-in-rhel-and-centos-kickstart-profiles.html)
+rootpw --iscrypted password_hash

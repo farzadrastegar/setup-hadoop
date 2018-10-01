@@ -72,14 +72,14 @@ HDP 2.6.1.0: https://docs.hortonworks.com/HDPDocuments/Ambari-2.5.1.0/bk_ambari-
 
    3.2. Add other nodes' hostnames to every node
 
-   3.2.1. Introduce nodes to each other with the following commands (Note: make sure you already installed sshpass on the frotend machine. In order to install sshpass, run this command on the frontend machine: 'yum install sshpass').
+   3.2.1. Introduce nodes, including PXE boot server, to each other with the following commands (Note: make sure you already installed sshpass on the frotend machine. In order to install sshpass, run this command on the frontend machine: 'yum install sshpass').
 
          $ yum install sshpass 
          $ cp lib/add-cluster-hostnames.bash . 
-         (edit add-cluster-hostnames.bash and add all nodes' IPs and hostnames)
+         (edit add-cluster-hostnames.bash and add all nodes' IPs and desired hostnames)
          $ ./mypdsh.bash <usernames> <ip-addresses> add-cluster-hostnames.bash
 
-   \<usernames\>, \<ip-addresses\>, and \<desired-hostnames\> represent three file names containing the root username, IP address of hadoop cluster nodes, and desired hostnames respectively. Each username, IP address, or hostname resides in a separate line. Note: desired hostnames are the same hostnames used earlier.
+   \<usernames\>, \<ip-addresses\>, and \<desired hostnames\> represent three file names containing the root username, IP address of hadoop cluster nodes, and desired hostnames respectively. Each username, IP address, or hostname resides in a separate line. Note: desired hostnames are the same hostnames used earlier.
 
    3.2.2. Setup each node's hostname.
 
@@ -104,11 +104,11 @@ Before-doing-4. (If necessary) download jre/jdk rpm files and run the following 
          $ cp samples/install-java-jdk-8u151.bash .
          $ ./mypdsh.bash <usernames> <ip-addresses> install-java-jdk-8u151.bash
 
-4. Prepare Ambari/HDP repositories using the following URL in a machine called the repository server. This server that is configured to contain all the Ambari/HDP repositories is called 'master1.hadoopcluster.webranking' in our scripts laster on. This server is different from hadoop nodes. In other words, the frontend machine and the repository server could be considered as two virtual machines serving to configure the hadoop cluster. After setting up the repository server, make sure to copy the ~/.ssh directory from one of hadoop cluster nodes to the home directory of the repository server so that the nodes can ssh the repository server without password. 
+4. Prepare Ambari/HDP repositories using the following URL in a machine called the repository server. This server that is configured to contain all the Ambari/HDP repositories is called 'master1.hadoopcluster.webranking' in our scripts laster on. This server is different from hadoop nodes. In other words, the frontend machine and the repository server could be considered as two virtual machines serving to configure the hadoop cluster. After setting up the repository server, make sure to copy the ~/.ssh directory from one of hadoop cluster nodes to the home directory of the repository server so that the nodes can ssh the repository server without password (see 5.1). 
 
     https://www.youtube.com/watch?v=usYJbMRXxew&index=4&list=PLhd4MmrFf8CXULSLNIxuoY49mVDGKlMk3
 
-   4.1. This tutorial uses Mysql for Hive in Hadoop. Since local repositories in hadoop cluster nodes will be configured (see next step), make sure to setup Mysql network repository in the repository server, i.e. 'master1.hadoopcluster.webranking', using the instructions in [this link](https://community.hortonworks.com/questions/91032/how-to-create-the-mysql-local-repository-for-insta.html) or [this link](https://www.tecmint.com/setup-yum-repository-in-centos-7/). That done, there will be a repo file for Mysql in the /etc/yum.repos.d directory of the repository server.
+   4.1. This tutorial uses Mysql for Hive in Hadoop. In addition to the Ambari/HDP repositories prepared in step 4, make sure to setup Mysql network repository in the repository server, i.e. 'master1.hadoopcluster.webranking', using the instructions in [this link](https://community.hortonworks.com/questions/91032/how-to-create-the-mysql-local-repository-for-insta.html) or [this link](https://www.tecmint.com/setup-yum-repository-in-centos-7/). Once Mysql repository is set up, you should have a repo file for Mysql in the /etc/yum.repos.d directory of the repository server.
 
 5. Prepare /etc/yum.repos.d in every node.
 
@@ -123,7 +123,7 @@ Before-doing-4. (If necessary) download jre/jdk rpm files and run the following 
 
    Note: 'master1.hadoopcluster.webranking' represents the repository server (see step 4).
 
-   5.2. Back to the frontend machine, make a backup directory and move current repo files to it. Copy .repo files from the repository server, i.e. master1.hadoopcluster.webranking, to /etc/yum.repos.d using the following commands. Note: the 'scp' command below makes the ftp service of the frontend machine available for the repository server.
+   5.2. Back to the frontend machine, use the commands below to make a backup directory in each node and move /etc/yum.repos.d/\*.repo files to it. Then, copy all the /etc/yum.repos.d/\*.repo files from the repository server, i.e. master1.hadoopcluster.webranking, to /etc/yum.repos.d in every node. Also, make sure to make the ftp service of the frontend machine available for the repository server (see the 'scp' command below).
 
          (open lib/pxe.repo and replace the IP address in the FTP url with the IP address of your frontend machine. That is, 'baseurl=ftp://FRONTEND-IP-ADDRESS-HERE/pub')
          $ scp lib/pxe.repo adminuser@master1.hadoopcluster.webranking:/etc/yum.repos.d/
@@ -136,7 +136,7 @@ Before-doing-4. (If necessary) download jre/jdk rpm files and run the following 
 
    6.1. Configure all nodes.
 
-   6.1.1. Change "$1", "$2", and "read" commands in pre1-ambari-setup.sh and name it pre1-noquestions-ambari-setup.sh.
+   6.1.1. Indicate hadoop partitions and hadoop username by editing line #20 and #21 respectively in pre1-noquestions-ambari-setup.sh. Hadoop partitions are shown in a string separated through the pipe character. For example, two partitions 'grid' and 'hadoop' will be shown as "grid|hadoop".
 
    6.1.2. Run configurations on all nodes.
 
@@ -148,13 +148,14 @@ Before-doing-4. (If necessary) download jre/jdk rpm files and run the following 
 
    6.2. Validate configureations.
 
-   6.2.1. Change "$1", "$2", and "read" commands in lib/pre1-test-ambari-setup.sh and name it pre1-noquestions-test-ambari-setup.sh.
+   6.2.1. Similar to 6.1.1, indicate hadoop partitions and hadoop username by editing line #18 and #19 respectively in lib/pre1-noquestions-test-ambari-setup.sh. 
 
    6.2.2. Run validations on all nodes.
 
+         $ cp lib/pre1-noquestions-test-ambari-setup.sh .
          $ ./mypdsh.bash <usernames> <ip-addresses> pre1-noquestions-test-ambari-setup.sh
 
-   6.2.3. See output at root@\<node-hostname\>:~/host-config/pre1-noquestions-test-ambari-setup.sh.out. There shouldn't be any "NOT" term in the file. Note: if transparent_hugepage is NOT disabled, use the script in samples/disable-transparent_hugepage-using-crontab.bash and reboot as follows.
+   6.2.3. See output at root@\<node-hostname\>:~/host-config/pre1-noquestions-test-ambari-setup.sh.out. There shouldn't be any "NOT" terms in the file. Note: if transparent_hugepage is NOT disabled in the output file, use the script in samples/disable-transparent_hugepage-using-crontab.bash and reboot as follows.
 
          $ cp samples/disable-transparent_hugepage-using-crontab.bash .
          $ ./mypdsh.bash <usernames> <ip-addresses> disable-transparent_hugepage-using-crontab.bash
